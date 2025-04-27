@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern AI Chat Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a modern, stylish look */
+        body {
+            font-family: 'Poppins', sans-serif; /* Using Poppins font */
+            background-color: #eef2f7; /* Light background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .app-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px; /* Wider container */
+            height: 95vh; /* Slightly less than full height */
+            overflow: hidden;
+            border-radius: 20px; /* More rounded container */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); /* Prominent shadow */
+            background-color: #ffffff;
+        }
+
+        .sidebar {
+            width: 300px; /* Wider sidebar */
+            background-color: #f8fafc; /* Very light sidebar background */
+            padding: 25px;
+            border-right: 1px solid #e2e8f0; /* Subtle separator */
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .new-chat-button {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            gap: 12px;
+            padding: 12px 20px;
+            background: linear-gradient(to right, #6366f1, #8b5cf6); /* Gradient button */
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3); /* Button shadow */
+        }
+
+        .new-chat-button:hover {
+            background: linear-gradient(to right, #8b5cf6, #6366f1);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+         .new-chat-button i {
+            font-size: 1.1rem;
+         }
+
+        .sidebar h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #334155; /* Darker text */
+        }
+
+        .chat-history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .chat-history-item {
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            color: #475569; /* Medium gray text */
+            cursor: pointer;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .chat-history-item:hover {
+            background-color: #eef2f7; /* Light highlight on hover */
+            color: #1e3a8a; /* Darker text on hover */
+        }
+
+         .chat-history-item.active {
+             background-color: #dbeafe; /* Light blue for active item */
+             color: #1e3a8a;
+             font-weight: 500;
+         }
+
+        .chat-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .chat-header {
+            background-color: #ffffff;
+            color: #333;
+            padding: 18px 25px; /* Increased padding */
+            font-size: 1.3rem; /* Larger font size */
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .chat-history {
+            flex-grow: 1;
+            padding: 30px; /* More padding */
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* More space between messages */
+            scroll-behavior: smooth;
+            padding-bottom: 120px; /* Space for input area */
+        }
+
+        .message {
+            max-width: 80%; /* Slightly wider messages */
+            padding: 15px 20px; /* More padding */
+            border-radius: 12px; /* More rounded */
+            word-wrap: break-word;
+            line-height: 1.6; /* Improved readability */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Slightly more pronounced shadow */
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #6366f1; /* Indigo */
+            color: white;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background-color: #f1f5f9; /* Light gray */
+            color: #334155; /* Darker text */
+        }
+
+        /* Loading indicator */
+        .loading-message {
+            align-self: flex-start;
+            background-color: #e0e7ff;
+            color: #1e3a8a;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .chat-input-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 25px 30px; /* More padding */
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 20px; /* More space */
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Stronger shadow above input */
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 14px 20px; /* More padding */
+            border: 1px solid #cbd5e1;
+            border-radius: 10px; /* More rounded */
+            outline: none;
+            font-size: 1rem;
+            resize: none;
+            min-height: 50px; /* Taller input */
+            max-height: 180px; /* Allow taller input */
+            overflow-y: auto;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        .chat-input:focus {
+            border-color: #6366f1; /* Indigo highlight */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .send-button {
+            background: linear-gradient(to right, #6366f1, #8b5cf6); /* Gradient button */
+            color: white;
+            padding: 14px 25px; /* More padding */
+            border: none;
+            border-radius: 10px; /* More rounded */
+            cursor: pointer;
+            font-size: 1.1rem; /* Larger icon/text */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+             box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3); /* Button shadow */
+        }
+        .send-button:hover {
+             background: linear-gradient(to right, #8b5cf6, #6366f1);
+             box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+        .send-button:active {
+            transform: scale(0.98);
+        }
+        .send-button:disabled {
+            background: #a5b4fc; /* Lighter gradient */
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .clear-button {
+            background-color: #ef4444; /* Red */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s ease;
+            margin-top: 15px; /* More space */
+            align-self: center;
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2); /* Button shadow */
+        }
+        .clear-button:hover {
+            background-color: #dc2626; /* Darker red */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+             .app-container {
+                 max-width: 100%;
+                 height: 100vh;
+                 border-radius: 0;
+                 box-shadow: none;
+             }
+             body {
+                 padding: 0;
+             }
+             .sidebar {
+                 width: 250px; /* Slightly smaller sidebar */
+                 padding: 20px;
+             }
+              .new-chat-button {
+                  margin-bottom: 20px;
+              }
+             .chat-history-item {
+                 padding: 10px 8px;
+                 font-size: 0.9rem;
+             }
+             .chat-area {
+                 padding-bottom: 100px;
+             }
+             .chat-history {
+                 padding: 20px;
+                 gap: 15px;
+             }
+             .message {
+                 max-width: 85%;
+                 padding: 12px 18px;
+                 border-radius: 10px;
+             }
+             .chat-input-container {
+                 padding: 20px 25px;
+                 gap: 15px;
+             }
+             .chat-input {
+                 padding: 12px 15px;
+                 min-height: 45px;
+             }
+             .send-button {
+                 padding: 12px 20px;
+                 font-size: 1rem;
+             }
+              .clear-button {
+                 margin-top: 10px;
+                 padding: 8px 15px;
+                 font-size: 0.9rem;
+             }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column; /* Stack sidebar and chat area */
+                height: 100%;
+            }
+            .sidebar {
+                width: 100%; /* Full width sidebar */
+                height: auto; /* Auto height */
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0; /* Bottom border */
+                padding: 15px;
+            }
+             .new-chat-button {
+                 margin-bottom: 15px;
+                 padding: 10px 15px;
+                 font-size: 0.9rem;
+             }
+             .sidebar h3 {
+                 font-size: 1.1rem;
+                 margin-bottom: 10px;
+             }
+             .chat-history-item {
+                 padding: 8px 6px;
+                 font-size: 0.85rem;
+             }
+            .chat-area {
+                height: auto;
+                padding-bottom: 100px; /* Ensure space for input */
+            }
+            .chat-history {
+                padding: 15px;
+                gap: 10px;
+            }
+             .message {
+                max-width: 95%;
+                padding: 10px 15px;
+                border-radius: 8px;
+            }
+            .chat-input-container {
+                 position: fixed; /* Fixed position at the bottom */
+                 bottom: 0;
+                 left: 0;
+                 right: 0;
+                 padding: 15px;
+                 gap: 10px;
+                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            }
+            .chat-input {
+                padding: 10px 12px;
+            }
+            .send-button {
+                padding: 10px 15px;
+                font-size: 1rem;
+                justify-content: center;
+            }
+             .clear-button {
+                margin-top: 5px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+             <button id="new-chat-button" class="new-chat-button">
+                <i class="fas fa-plus"></i> New Chat
+            </button>
+            <h3>Chat History</h3>
+            <ul id="chat-history-list" class="chat-history-list">
+                </ul>
+        </div>
+
+        <div class="chat-area">
+            <div class="chat-header">
+                AI Assistant
+            </div>
+            <div class="chat-history" id="chat-history">
+                </div>
+            <div class="chat-input-container">
+                <textarea id="user-input" class="chat-input" placeholder="Message AI Assistant..."></textarea>
+                <button id="send-button" class="send-button">
+                    <i class="fas fa-paper-plane"></i> </button>
+            </div>
+             <button id="clear-chat-button" class="clear-button">Clear Current Chat</button>
+        </div>
+    </div>
+
+    <script>
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const chatHistoryDiv = document.getElementById('chat-history'); // Renamed to avoid conflict
+        const clearChatButton = document.getElementById('clear-chat-button');
+        const newChatButton = document.getElementById('new-chat-button');
+        const chatHistoryList = document.getElementById('chat-history-list');
+
+        let isLoading = false; // State to track if a response is being loaded
+        let chatHistory = []; // Array to store all chat sessions
+        let currentChatIndex = -1; // Index of the currently active chat
+
+        // Function to add a message to the main chat history div
+        function addMessageToMainChat(text, sender) {
+             const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message');
+            if (sender === 'user') {
+                messageDiv.classList.add('user-message');
+            } else {
+                messageDiv.classList.add('ai-message');
+            }
+            messageDiv.textContent = text;
+            chatHistoryDiv.appendChild(messageDiv);
+
+            // Scroll to the bottom of the chat history
+            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
+        }
+
+        // Function to add a loading indicator
+        function addLoadingIndicator() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.classList.add('loading-message');
+            loadingDiv.id = 'loading-indicator';
+            loadingDiv.textContent = 'AI is thinking...';
+            chatHistoryDiv.appendChild(loadingDiv);
+            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight; // Scroll to show loading
+        }
+
+        // Function to remove the loading indicator
+        function removeLoadingIndicator() {
+            const loadingDiv = document.getElementById('loading-indicator');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+
+        // Function to load chat history from localStorage
+        function loadChatHistory() {
+            const savedHistory = localStorage.getItem('aiChatHistory');
+            if (savedHistory) {
+                chatHistory = JSON.parse(savedHistory);
+            } else {
+                // Start a new chat if no history is found
+                startNewChat();
+            }
+            renderChatHistoryList();
+            // Load the latest chat if history exists
+            if (chatHistory.length > 0) {
+                loadChat(chatHistory.length - 1);
+            } else {
+                 // If no history was loaded and startNewChat was called,
+                 // ensure the initial message is displayed.
+                 if (chatHistoryDiv.innerHTML === '') {
+                      addMessageToMainChat('Hello! How can I help you today?', 'ai');
+                 }
+            }
+        }
+
+        // Function to save chat history to localStorage
+        function saveChatHistory() {
+            localStorage.setItem('aiChatHistory', JSON.stringify(chatHistory));
+        }
+
+        // Function to render the chat history list in the sidebar
+        function renderChatHistoryList() {
+            chatHistoryList.innerHTML = ''; // Clear current list
+
+            if (chatHistory.length === 0) {
+                chatHistoryList.innerHTML = '<li class="text-sm text-gray-500 italic">No chats yet.</li>';
+                return;
+            }
+
+            chatHistory.forEach((chat, index) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('chat-history-item');
+                 if (index === currentChatIndex) {
+                     listItem.classList.add('active'); // Highlight active chat
+                 }
+                // Use the first user message as the title, or a default
+                const chatTitle = chat.messages.find(msg => msg.sender === 'user')?.text.substring(0, 30) + '...' || `Chat ${index + 1}`;
+                listItem.textContent = chatTitle;
+                listItem.dataset.chatIndex = index; // Store the index
+
+                // Add click event listener to load the chat
+                listItem.addEventListener('click', () => {
+                    loadChat(index);
+                });
+
+                chatHistoryList.appendChild(listItem);
+            });
+        }
+
+        // Function to load a specific chat into the main chat area
+        function loadChat(index) {
+            if (index < 0 || index >= chatHistory.length) {
+                console.error("Invalid chat index");
+                return;
+            }
+
+            // Save the current chat before loading a new one (if one is active)
+            if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
+                 saveChatHistory(); // Save the current chat state
+            }
+
+            currentChatIndex = index;
+            chatHistoryDiv.innerHTML = ''; // Clear current messages
+
+            // Add messages from the selected chat
+            chatHistory[currentChatIndex].messages.forEach(message => {
+                addMessageToMainChat(message.text, message.sender);
+            });
+
+            // Scroll to the bottom of the loaded chat
+            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
+
+            // Highlight the selected chat in the sidebar
+            renderChatHistoryList(); // Re-render to update active class
+        }
+
+        // Function to start a new chat session
+        function startNewChat() {
+             // Save the current chat before starting a new one (if one is active)
+            if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
+                 saveChatHistory(); // Save before creating a new one
+            }
+
+            const newChat = {
+                id: Date.now(), // Simple unique ID
+                messages: [{ text: 'Hello! How can I help you today?', sender: 'ai' }] // Initial AI message
+            };
+            chatHistory.push(newChat);
+            currentChatIndex = chatHistory.length - 1; // Set new chat as current
+
+            chatHistoryDiv.innerHTML = ''; // Clear main chat area
+            addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Add initial message
+
+            renderChatHistoryList(); // Update sidebar
+            saveChatHistory(); // Save the updated history
+            userInput.focus(); // Focus input
+        }
+
+
+        // Function to handle sending a message
+        async function sendMessage() {
+            if (isLoading) { // Prevent sending multiple messages while loading
+                return;
+            }
+
+            const prompt = userInput.value.trim();
+            if (prompt === '') {
+                return; // Don't send empty messages
+            }
+
+            // Add user message to current chat and display
+            const userMessage = { text: prompt, sender: 'user' };
+            // Ensure currentChatIndex is valid before pushing
+            if (currentChatIndex === -1 || !chatHistory[currentChatIndex]) {
+                 // If no chat is active, start a new one
+                 startNewChat();
+            }
+            chatHistory[currentChatIndex].messages.push(userMessage);
+            addMessageToMainChat(userMessage.text, userMessage.sender);
+
+            // Clear the input area
+            userInput.value = '';
+
+            // Show loading indicator and disable input/button
+            isLoading = true;
+            sendButton.disabled = true;
+            userInput.disabled = true;
+            addLoadingIndicator(); // Call the function here
+
+            // --- Backend API Call ---
+            // This calls your Python backend running locally (e.g., with waitress-serve)
+            // In a hosted version, replace 'http://127.0.0.1:5000' with your backend's public URL.
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/gemini', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: prompt }),
+                });
+
+                removeLoadingIndicator(); // Remove loading indicator once response is received
+
+                if (!response.ok) {
+                     // Attempt to parse error details from backend response
+                    const errorText = await response.text(); // Get raw text first
+                    let errorDetails = `HTTP error! status: ${response.status}`;
+                    try {
+                         const errorJson = JSON.parse(errorText);
+                         errorDetails += `, details: ${errorJson.error || 'Unknown error'}`;
+                    } catch (e) {
+                         errorDetails += `, response: ${errorText.substring(0, 100)}...`; // Show part of response if not JSON
+                    }
+                    throw new Error(errorDetails);
+                }
+
+                const data = await response.json();
+                const aiResponseText = data.text;
+
+                // Add AI message to current chat and display
+                const aiMessage = { text: aiResponseText, sender: 'ai' };
+                 // Ensure currentChatIndex is still valid before pushing AI message
+                 if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
+                    chatHistory[currentChatIndex].messages.push(aiMessage);
+                    addMessageToMainChat(aiMessage.text, aiMessage.sender);
+                    saveChatHistory(); // Save history after successful message exchange
+                    renderChatHistoryList(); // Update sidebar in case the title changed
+                 } else {
+                     // If chat somehow became invalid during the request, just display the message
+                     addMessageToMainChat(aiMessage.text, aiMessage.sender);
+                 }
+
+
+            } catch (error) {
+                console.error('Error communicating with backend:', error);
+                removeLoadingIndicator(); // Remove loading indicator on error
+                addMessageToMainChat('Sorry, there was an error getting a response from the AI. Details in console.', 'ai');
+                 // Note: Error messages are not saved to history in this example
+            } finally {
+                // Re-enable input and button
+                isLoading = false;
+                sendButton.disabled = false;
+                userInput.disabled = false;
+                userInput.focus(); // Put focus back on the input field
+            }
+            // --- End Backend API Call ---
+        }
+
+        // Function to clear the current chat history
+        function clearChat() {
+            if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
+                // Keep the initial AI message, clear the rest
+                chatHistory[currentChatIndex].messages = [{ text: 'Hello! How can I help you today?', sender: 'ai' }];
+                chatHistoryDiv.innerHTML = ''; // Clear main chat area
+                addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Add initial message
+                saveChatHistory(); // Save the cleared chat
+                renderChatHistoryList(); // Update sidebar (title might change)
+            }
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+
+        userInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        clearChatButton.addEventListener('click', clearChat);
+        newChatButton.addEventListener('click', startNewChat);
+
+        // Initial load
+        window.onload = () => {
+            loadChatHistory(); // Load history on page load
+            userInput.focus(); // Focus input
+        };
+
+    </script>
+</body>
+</html>
