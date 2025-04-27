@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo's AI Assistant Web</title>
+    <title>Modern AI Chat Design - Mobile Optimized</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -245,8 +245,93 @@
             background-color: #dc2626; /* Darker red */
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
+        /* --- Mobile Specific Styles (max-width: 768px) --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 0; /* Remove body padding on small screens */
+            }
+            .app-container {
+                flex-direction: column; /* Stack sidebar and chat area */
+                height: 100vh; /* Full viewport height */
+                border-radius: 0; /* Remove border-radius */
+                box-shadow: none; /* Remove shadow */
+            }
+            .sidebar {
+                width: 100%; /* Full width sidebar */
+                height: auto; /* Auto height */
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0; /* Bottom border */
+                padding: 15px; /* Reduced padding */
+                max-height: 150px; /* Limit sidebar height on small screens */
+            }
+             .new-chat-button {
+                 margin-bottom: 15px;
+                 padding: 10px 15px;
+                 font-size: 0.9rem;
+             }
+             .sidebar h3 {
+                 font-size: 1.1rem;
+                 margin-bottom: 10px;
+             }
+             .chat-history-list {
+                 display: flex; /* Arrange history items in a row */
+                 overflow-x: auto; /* Enable horizontal scrolling */
+                 padding-bottom: 10px; /* Add padding for scrollbar */
+             }
+             .chat-history-item {
+                 flex-shrink: 0; /* Prevent shrinking */
+                 padding: 8px 10px; /* Adjusted padding */
+                 font-size: 0.85rem;
+                 border-bottom: none; /* Remove bottom border */
+                 margin-right: 8px; /* Space between items */
+                 margin-bottom: 0; /* Remove bottom margin */
+                 background-color: #eef2f7; /* Light background for items */
+             }
+             .chat-history-item:last-child {
+                 margin-right: 0; /* No margin on the last item */
+             }
+
+            .chat-area {
+                height: auto; /* Auto height */
+                flex-grow: 1; /* Take remaining space */
+                padding-bottom: 100px; /* Ensure space for input */
+            }
+            .chat-history {
+                padding: 15px; /* Reduced padding */
+                gap: 10px; /* Reduced gap */
+            }
+             .message {
+                max-width: 100%; /* Allow full width on small screens */
+                padding: 10px 15px; /* Adjusted padding */
+                border-radius: 8px; /* Adjusted border-radius */
+            }
+            .chat-input-container {
+                 position: fixed; /* Fixed position at the bottom */
+                 bottom: 0;
+                 left: 0;
+                 right: 0;
+                 padding: 15px; /* Reduced padding */
+                 gap: 10px; /* Reduced gap */
+                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            }
+            .chat-input {
+                padding: 10px 12px; /* Adjusted padding */
+                min-height: 40px; /* Slightly smaller input height */
+            }
+            .send-button {
+                padding: 10px 15px; /* Adjusted padding */
+                font-size: 1rem;
+                justify-content: center;
+            }
+             .clear-button {
+                margin-top: 5px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* --- Tablet Specific Styles (max-width: 1024px) --- */
+        @media (max-width: 1024px) and (min-width: 769px) {
              .app-container {
                  max-width: 100%;
                  height: 100vh;
@@ -297,68 +382,6 @@
                  font-size: 0.9rem;
              }
         }
-
-        @media (max-width: 768px) {
-            .app-container {
-                flex-direction: column; /* Stack sidebar and chat area */
-                height: 100%;
-            }
-            .sidebar {
-                width: 100%; /* Full width sidebar */
-                height: auto; /* Auto height */
-                border-right: none;
-                border-bottom: 1px solid #e2e8f0; /* Bottom border */
-                padding: 15px;
-            }
-             .new-chat-button {
-                 margin-bottom: 15px;
-                 padding: 10px 15px;
-                 font-size: 0.9rem;
-             }
-             .sidebar h3 {
-                 font-size: 1.1rem;
-                 margin-bottom: 10px;
-             }
-             .chat-history-item {
-                 padding: 8px 6px;
-                 font-size: 0.85rem;
-             }
-            .chat-area {
-                height: auto;
-                padding-bottom: 100px; /* Ensure space for input */
-            }
-            .chat-history {
-                padding: 15px;
-                gap: 10px;
-            }
-             .message {
-                max-width: 95%;
-                padding: 10px 15px;
-                border-radius: 8px;
-            }
-            .chat-input-container {
-                 position: fixed; /* Fixed position at the bottom */
-                 bottom: 0;
-                 left: 0;
-                 right: 0;
-                 padding: 15px;
-                 gap: 10px;
-                 box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-            }
-            .chat-input {
-                padding: 10px 12px;
-            }
-            .send-button {
-                padding: 10px 15px;
-                font-size: 1rem;
-                justify-content: center;
-            }
-             .clear-button {
-                margin-top: 5px;
-                padding: 6px 12px;
-                font-size: 0.8rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -374,7 +397,7 @@
 
         <div class="chat-area">
             <div class="chat-header">
-                Geo's AI Assistant
+                AI Assistant
             </div>
             <div class="chat-history" id="chat-history">
                 </div>
