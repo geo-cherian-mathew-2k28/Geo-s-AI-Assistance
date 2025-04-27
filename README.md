@@ -11,8 +11,7 @@ This project focuses on the frontend of an AI assistant, built entirely with HTM
 
 🛠️ Setup & Usage
 To run the frontend locally:
-- Clone the repository:git clone https://github.com/your-repo-link
-  git clone https://github.com/your-repo-link
+- Clone the repository:[git clone https://github.com/your-repo-link](https://github.com/geo-cherian-mathew-2k28/Geo-s-AI-Assistance.git)
 - Open the project folder.
 - Run the index.html file in a browser.
 
