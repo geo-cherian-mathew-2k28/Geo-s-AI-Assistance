@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium AI Chat Interface</title>
+    <title>Geo's AI Assistant</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -433,7 +433,7 @@
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
                 box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
-                background-color: var(--sidebar-bg); /* Apply mobile background */
+                background-color: var(--sidebar-bg);
             }
 
              .sidebar.open {
@@ -465,19 +465,19 @@
                  flex-shrink: 0;
                  padding: 10px 12px;
                  font-size: 0.9rem;
-                 border-bottom: 1px solid var(--sidebar-border); /* Use variable */
+                 border-bottom: 1px solid var(--sidebar-border);
                  margin-right: 0;
                  margin-bottom: 8px;
                  background-color: transparent;
                  border-radius: 0;
-                 color: var(--history-item-color); /* Use variable */
+                 color: var(--history-item-color);
              }
              .chat-history-item:last-child {
                  margin-right: 0;
              }
               .chat-history-item.active {
-                 background-color: var(--history-item-active-bg); /* Use variable */
-                 color: var(--history-item-active-color); /* Use variable */
+                 background-color: var(--history-item-active-bg);
+                 color: var(--history-item-active-color);
                  border-color: transparent;
              }
 
@@ -493,9 +493,9 @@
                 padding: 15px 20px;
                 font-size: 1.2rem;
                  justify-content: flex-start;
-                 background-color: var(--chat-header-bg); /* Apply mobile background */
-                 color: var(--chat-header-color); /* Apply mobile color */
-                 border-bottom: 1px solid var(--chat-header-border); /* Apply mobile border */
+                 background-color: var(--chat-header-bg);
+                 color: var(--chat-header-color);
+                 border-bottom: 1px solid var(--chat-header-border);
             }
 
             .sidebar-toggle {
@@ -503,15 +503,15 @@
                  position: static;
                  transform: none;
                  margin-right: 15px;
-                 color: var(--sidebar-toggle-color); /* Use variable */
+                 color: var(--sidebar-toggle-color);
             }
 
              .theme-toggle {
-                 position: static; /* Position relative to flex container */
-                 transform: none; /* Remove transform */
-                 margin-left: auto; /* Push to the right */
-                 font-size: 1.2rem; /* Adjusted size for mobile header */
-                 color: var(--chat-header-color); /* Use header color */
+                 position: static;
+                 transform: none;
+                 margin-left: auto;
+                 font-size: 1.2rem;
+                 color: var(--chat-header-color);
              }
 
 
@@ -532,16 +532,16 @@
                  padding: 20px;
                  gap: 15px;
                  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-                 background-color: var(--input-container-bg); /* Apply mobile background */
-                 border-top: 1px solid var(--input-container-border-top); /* Apply mobile border */
+                 background-color: var(--input-container-bg);
+                 border-top: 1px solid var(--input-container-border-top);
             }
             .chat-input {
                 padding: 12px 15px;
                 min-height: 45px;
-                 color: var(--chat-header-color); /* Use variable */
+                 color: var(--chat-header-color);
             }
              .chat-input::placeholder {
-                 color: var(--history-item-color); /* Use variable */
+                 color: var(--history-item-color);
              }
             .send-button {
                 padding: 12px 18px;
@@ -582,9 +582,9 @@
              .app-container.sidebar-collapsed .chat-area {
                  margin-left: 80px;
              }
-             .sidebar.collapsed .new-chat-button,
+             .sidebar.collapsed .new-chat-button .button-text, /* Target the span specifically */
              .sidebar.collapsed h3,
-             .sidebar.collapsed .chat-history-item span {
+             .sidebar.collapsed .chat-history-item span { /* Target the span specifically */
                  display: none;
              }
              .sidebar.collapsed .chat-history-item {
@@ -617,7 +617,7 @@
                  <button id="sidebar-toggle" class="sidebar-toggle">
                      <i class="fas fa-bars"></i>
                  </button>
-                AI Assistant
+                Geo's AI Assistant
                 <button id="theme-toggle" class="theme-toggle">
                     <i class="fas fa-moon"></i> </button>
             </div>
@@ -674,10 +674,11 @@
 
          // --- Sidebar Toggle ---
         function toggleSidebar() {
+            // Toggle collapsed class for desktop view transition
             sidebar.classList.toggle('collapsed');
             appContainer.classList.toggle('sidebar-collapsed');
 
-            // Handle mobile overlay and fixed positioning
+            // Handle mobile view (fixed position, slide in/out)
             if (window.innerWidth <= 768) {
                 sidebar.classList.toggle('open');
                 overlay.classList.toggle('visible');
