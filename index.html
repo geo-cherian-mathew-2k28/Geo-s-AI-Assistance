@@ -1438,6 +1438,7 @@
                     historyMsg.imageUrl = msg.file.data;
                 }
                 // For other file types in history, just send the text part
+                // The backend will handle parsing if implemented
                 return historyMsg;
             });
 
@@ -1632,7 +1633,7 @@
             // You could potentially show a modal here to let the user choose file type,
             // or just trigger a generic file input. For simplicity, we'll trigger
             // the image input first, and you can add logic to trigger others.
-            // A more robust approach might involve separate buttons for each type.
+            // A more sophisticated file type selection UI.
 
             // Let's trigger the image input for now as a starting point.
             // You might want a more sophisticated file type selection UI.
