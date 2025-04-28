@@ -10,89 +10,94 @@
     <style>
         /* CSS Variables for Themes */
         :root {
-            /* Light Theme */
-            --body-bg: #f4f7f6;
-            --app-bg: #ffffff;
-            --sidebar-bg: #eef2f6;
-            --sidebar-border: #e2e8f0;
-            --new-chat-btn-gradient-start: #4a00e0;
-            --new-chat-btn-gradient-end: #8e2de2;
-            --new-chat-btn-shadow: rgba(74, 0, 224, 0.3);
-            --sidebar-text-color: #1e293b;
-            --history-item-color: #475569;
-            --history-item-hover-bg: #e2e8f0;
-            --history-item-hover-color: #1e3a8a;
-            --history-item-active-bg: #d1d5db;
-            --history-item-active-color: #1e293b;
-            --chat-header-bg: #ffffff;
-            --chat-header-color: #1e293b;
-            --chat-header-border: #e2e8f0;
-            --message-user-bg-gradient-start: #4a00e0;
-            --message-user-bg-gradient-end: #8e2de2;
+            /* Light Theme - Softer, Professional Tones */
+            --body-bg: #eef2f6; /* Light blue-gray */
+            --app-bg: #ffffff; /* White */
+            --sidebar-bg: #ffffff; /* White */
+            --sidebar-border: #e2e8f0; /* Light gray */
+            --new-chat-btn-gradient-start: #6366f1; /* Indigo */
+            --new-chat-btn-gradient-end: #818cf8; /* Lighter Indigo */
+            --new-chat-btn-shadow: rgba(99, 102, 241, 0.3);
+            --sidebar-text-color: #1e293b; /* Dark Slate */
+            --history-item-color: #475569; /* Slate */
+            --history-item-hover-bg: #f1f5f9; /* Very light blue-gray */
+            --history-item-hover-color: #4f46e5; /* Indigo */
+            --history-item-active-bg: #e0e7ff; /* Very light indigo */
+            --history-item-active-color: #4338ca; /* Darker Indigo */
+            --chat-header-bg: #ffffff; /* White */
+            --chat-header-color: #1e293b; /* Dark Slate */
+            --chat-header-border: #e2e8f0; /* Light gray */
+            --message-user-bg-gradient-start: #6366f1; /* Indigo */
+            --message-user-bg-gradient-end: #818cf8; /* Lighter Indigo */
             --message-user-color: white;
-            --message-ai-bg: #f1f5f9;
-            --message-ai-color: #1e293b;
-            --message-ai-border: #e2e8f0;
-            --loading-message-bg: #eef2f6;
-            --loading-message-color: #475569;
-            --input-container-bg: #ffffff;
-            --input-container-border-top: #e2e8f0;
-            --input-border: #cbd5e1;
-            --input-focus-border: #4a00e0;
-            --input-focus-shadow: rgba(74, 0, 224, 0.2);
-            --send-button-gradient-start: #4a00e0;
-            --send-button-gradient-end: #8e2de2;
-            --send-button-shadow: rgba(74, 0, 224, 0.3);
-            --send-button-disabled-bg: #e0cffc;
-            --clear-button-bg: #ef4444;
-            --clear-button-hover-bg: #dc2626;
+            --message-ai-bg: #f1f5f9; /* Very light blue-gray */
+            --message-ai-color: #1e293b; /* Dark Slate */
+            --message-ai-border: #e2e8f0; /* Light gray */
+            --loading-message-bg: #eef2f6; /* Light blue-gray */
+            --loading-message-color: #475569; /* Slate */
+            --input-container-bg: #ffffff; /* White */
+            --input-container-border-top: #e2e8f0; /* Light gray */
+            --input-border: #cbd5e1; /* Light gray */
+            --input-focus-border: #6366f1; /* Indigo */
+            --input-focus-shadow: rgba(99, 102, 241, 0.2);
+            --send-button-gradient-start: #6366f1; /* Indigo */
+            --send-button-gradient-end: #818cf8; /* Lighter Indigo */
+            --send-button-shadow: rgba(99, 102, 241, 0.3);
+            --send-button-disabled-bg: #a5b4fc; /* Very light indigo */
+            --clear-button-bg: #ef4444; /* Red */
+            --clear-button-hover-bg: #dc2626; /* Darker Red */
             --clear-button-shadow: rgba(239, 68, 68, 0.2);
-            --sidebar-toggle-color: #1e293b;
-            --sidebar-toggle-hover-color: #4a00e0;
+            --sidebar-toggle-color: #1e293b; /* Dark Slate */
+            --sidebar-toggle-hover-color: #4f46e5; /* Indigo */
+            /* Added for close button */
+            --sidebar-close-color: #475569; /* Slate */
+            --sidebar-close-hover-color: #1e293b; /* Dark Slate */
         }
 
-        /* Dark Theme */
+        /* Dark Theme - Deeper, Professional Tones */
         body.dark-mode {
-            --body-bg: #1a202c;
-            --app-bg: #2d3748;
-            --sidebar-bg: #2d3748;
-            --sidebar-border: #4a5568;
-            --new-chat-btn-gradient-start: #6b46c1;
-            --new-chat-btn-gradient-end: #805ad5;
-            --new-chat-btn-shadow: rgba(107, 70, 193, 0.3);
-            --sidebar-text-color: #e2e8f0;
-            --history-item-color: #a0aec0;
-            --history-item-hover-bg: #4a5568;
-            --history-item-hover-color: #e2e8f0;
-            --history-item-active-bg: #5a67d8;
-            --history-item-active-color: #ffffff;
-            --chat-header-bg: #2d3748;
-            --chat-header-color: #e2e8f0;
-            --chat-header-border: #4a5568;
-            --message-user-bg-gradient-start: #6b46c1;
-            --message-user-bg-gradient-end: #805ad5;
+            --body-bg: #1e293b; /* Dark Slate */
+            --app-bg: #334155; /* Slate */
+            --sidebar-bg: #334155; /* Slate */
+            --sidebar-border: #475569; /* Slate */
+            --new-chat-btn-gradient-start: #4f46e5; /* Indigo */
+            --new-chat-btn-gradient-end: #6366f1; /* Lighter Indigo */
+            --new-chat-btn-shadow: rgba(79, 70, 229, 0.3);
+            --sidebar-text-color: #e2e8f0; /* Light gray */
+            --history-item-color: #a0aec0; /* Light blue-gray */
+            --history-item-hover-bg: #475569; /* Slate */
+            --history-item-hover-color: #e0e7ff; /* Very light indigo */
+            --history-item-active-bg: #4338ca; /* Darker Indigo */
+            --history-item-active-color: #ffffff; /* White */
+            --chat-header-bg: #334155; /* Slate */
+            --chat-header-color: #e2e8f0; /* Light gray */
+            --chat-header-border: #475569; /* Slate */
+            --message-user-bg-gradient-start: #4f46e5; /* Indigo */
+            --message-user-bg-gradient-end: #6366f1; /* Lighter Indigo */
             --message-user-color: white;
-            --message-ai-bg: #4a5568;
-            --message-ai-color: #e2e8f0;
-            --message-ai-border: #4a5568;
-            --loading-message-bg: #4a5568;
-            --loading-message-color: #a0aec0;
-            --input-container-bg: #2d3748;
-            --input-container-border-top: #4a5568;
-            --input-border: #718096;
-            --input-focus-border: #6b46c1;
-            --input-focus-shadow: rgba(107, 70, 193, 0.2);
-            --send-button-gradient-start: #6b46c1;
-            --send-button-gradient-end: #805ad5;
-            --send-button-shadow: rgba(107, 70, 193, 0.3);
-            --send-button-disabled-bg: #9f7aea;
-            --clear-button-bg: #e53e3e;
-            --clear-button-hover-bg: #c53030;
-            --clear-button-shadow: rgba(229, 62, 62, 0.2);
-            --sidebar-toggle-color: #e2e8f0;
-            --sidebar-toggle-hover-color: #6b46c1;
+            --message-ai-bg: #475569; /* Slate */
+            --message-ai-color: #e2e8f0; /* Light gray */
+            --message-ai-border: #475569; /* Slate */
+            --loading-message-bg: #475569; /* Slate */
+            --loading-message-color: #a0aec0; /* Light blue-gray */
+            --input-container-bg: #334155; /* Slate */
+            --input-container-border-top: #475569; /* Slate */
+            --input-border: #64748b; /* Slate */
+            --input-focus-border: #4f46e5; /* Indigo */
+            --input-focus-shadow: rgba(79, 70, 229, 0.2);
+            --send-button-gradient-start: #4f46e5; /* Indigo */
+            --send-button-gradient-end: #6366f1; /* Lighter Indigo */
+            --send-button-shadow: rgba(79, 70, 229, 0.3);
+            --send-button-disabled-bg: #818cf8; /* Lighter Indigo */
+            --clear-button-bg: #dc2626; /* Darker Red */
+            --clear-button-hover-bg: #b91c1c; /* Even Darker Red */
+            --clear-button-shadow: rgba(220, 38, 38, 0.2);
+            --sidebar-toggle-color: #e2e8f0; /* Light gray */
+            --sidebar-toggle-hover-color: #6366f1; /* Indigo */
+            /* Added for close button */
+            --sidebar-close-color: #a0aec0; /* Light blue-gray */
+            --sidebar-close-hover-color: #e2e8f0; /* Light gray */
         }
-
 
         /* Base styles using variables */
         body {
@@ -104,16 +109,16 @@
             min-height: 100vh;
             padding: 0;
             box-sizing: border-box;
-            overflow: hidden;
+            overflow: hidden; /* Prevent body scroll */
             transition: background-color 0.3s ease; /* Smooth theme transition */
         }
 
         .app-container {
             display: flex;
             width: 100%;
-            max-width: 1500px;
-            height: 98vh;
-            overflow: hidden;
+            max-width: 1600px; /* Increased max-width for very large screens */
+            height: 98vh; /* Use percentage height */
+            overflow: hidden; /* Prevent app container scroll */
             border-radius: 24px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
             background-color: var(--app-bg);
@@ -122,24 +127,51 @@
         }
 
         .sidebar {
-            width: 320px;
+            width: 320px; /* Default width */
             background-color: var(--sidebar-bg);
             padding: 30px;
             border-right: 1px solid var(--sidebar-border);
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            overflow-y: auto; /* Allow sidebar content to scroll */
             flex-shrink: 0;
             transition: width 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-right-color 0.3s ease; /* Smooth transition */
             z-index: 10;
+            position: relative; /* Needed for absolute positioning of close button on mobile */
         }
 
-        /* Style for collapsed sidebar */
-        .sidebar.collapsed {
-            width: 0;
-            padding: 0;
-            overflow: hidden;
-            transform: translateX(-100%);
+        /* Desktop specific styles (min-width: 769px) */
+        @media (min-width: 769px) {
+            .sidebar.collapsed {
+                width: 80px; /* Collapsed width */
+                padding-left: 10px; /* Adjusted padding */
+                padding-right: 10px; /* Adjusted padding */
+                overflow-x: hidden; /* Hide horizontal overflow */
+            }
+
+            /* Hide text content in collapsed sidebar on desktop */
+            .sidebar.collapsed .new-chat-button .button-text,
+            .sidebar.collapsed h3,
+            .sidebar.collapsed .chat-history-item span {
+                display: none;
+            }
+
+            /* Center icons in collapsed sidebar on desktop */
+            .sidebar.collapsed .new-chat-button,
+            .sidebar.collapsed .chat-history-item {
+                justify-content: center;
+                padding: 12px 0; /* Adjust padding */
+            }
+
+            .sidebar.collapsed .new-chat-button i,
+            .sidebar.collapsed .chat-history-item i {
+                margin-right: 0; /* Remove margin */
+            }
+
+            /* Hide mobile close button on desktop */
+            .sidebar .sidebar-close-button {
+                display: none;
+            }
         }
 
         .new-chat-button {
@@ -158,6 +190,7 @@
             margin-bottom: 30px;
             transition: all 0.3s ease;
             box-shadow: 0 6px 20px var(--new-chat-btn-shadow);
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .new-chat-button:hover {
@@ -165,9 +198,9 @@
             box-shadow: 0 8px 25px var(--new-chat-btn-shadow);
         }
 
-         .new-chat-button i {
+        .new-chat-button i {
             font-size: 1.2rem;
-         }
+        }
 
         .sidebar h3 {
             font-size: 1.3rem;
@@ -175,13 +208,15 @@
             margin-bottom: 20px;
             color: var(--sidebar-text-color);
             transition: color 0.3s ease; /* Smooth transition */
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .chat-history-list {
             list-style: none;
             padding: 0;
             margin: 0;
-            flex-grow: 1;
+            flex-grow: 1; /* Allow list to take available space */
+            overflow-y: auto; /* Allow list to scroll independently */
         }
 
         .chat-history-item {
@@ -195,6 +230,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
             transition: background-color 0.2s ease, color 0.2s ease;
+            display: flex; /* Use flex for potential icon/text alignment */
+            align-items: center;
+            gap: 10px; /* Space between icon and text */
         }
 
         .chat-history-item:hover {
@@ -202,11 +240,22 @@
             color: var(--history-item-hover-color);
         }
 
-         .chat-history-item.active {
-             background-color: var(--history-item-active-bg);
-             color: var(--history-item-active-color);
-             font-weight: 500;
+        .chat-history-item.active {
+            background-color: var(--history-item-active-bg);
+            color: var(--history-item-active-color);
+            font-weight: 500;
+        }
+
+         .chat-history-item i {
+             flex-shrink: 0; /* Prevent icon from shrinking */
          }
+
+         .chat-history-item span {
+             flex-grow: 1; /* Allow text to take space */
+             overflow: hidden;
+             text-overflow: ellipsis;
+         }
+
 
         .chat-area {
             flex-grow: 1;
@@ -214,12 +263,25 @@
             flex-direction: column;
             height: 100%;
             position: relative;
-             transition: margin-left 0.3s ease; /* Smooth transition for chat area */
+            /* No margin-left here, handled by app-container flex layout */
         }
 
-        /* Adjust chat area margin when sidebar is NOT collapsed */
-        .app-container:not(.sidebar-collapsed) .chat-area {
-             margin-left: 320px; /* Match sidebar width */
+        /* Adjust chat area width based on sidebar state on desktop */
+        @media (min-width: 769px) {
+             .app-container:not(.sidebar-collapsed) .chat-area {
+                 /* When sidebar is NOT collapsed, chat area takes remaining space */
+                 width: calc(100% - 320px); /* Full width minus sidebar width */
+             }
+             .app-container.sidebar-collapsed .chat-area {
+                 /* When sidebar IS collapsed, chat area takes remaining space */
+                 width: calc(100% - 80px); /* Full width minus collapsed sidebar width */
+             }
+             .chat-area {
+                 flex-grow: 1; /* Still allow flex-grow */
+                 /* Add padding here to create space around the centered content */
+                 padding: 0 40px; /* Add horizontal padding to the chat area itself */
+                 box-sizing: border-box;
+             }
         }
 
 
@@ -230,68 +292,70 @@
             font-size: 1.4rem;
             font-weight: 600;
             border-bottom: 1px solid var(--chat-header-border);
-            text-align: center;
             flex-shrink: 0;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             position: relative;
-             transition: background-color 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease; /* Smooth transition */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space between toggle, title, theme */
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease; /* Smooth transition */
         }
 
-         .sidebar-toggle {
-             position: absolute;
-             left: 20px;
-             top: 50%;
-             transform: translateY(-50%);
-             background-color: transparent;
-             border: none;
-             font-size: 1.5rem;
-             color: var(--sidebar-toggle-color);
-             cursor: pointer;
-             padding: 5px;
-             transition: color 0.2s ease;
-             z-index: 20;
-             display: none;
-         }
+        .chat-header h3 {
+             flex-grow: 1; /* Allow title to take space */
+             text-align: center; /* Center the title */
+             margin: 0; /* Remove default margin */
+        }
 
-         .sidebar-toggle:hover {
-             color: var(--sidebar-toggle-hover-color);
-         }
+        .sidebar-toggle {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--sidebar-toggle-color);
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s ease;
+            z-index: 20;
+            /* Positioning handled by flexbox in header */
+        }
 
-         .theme-toggle {
-             position: absolute;
-             right: 20px;
-             top: 50%;
-             transform: translateY(-50%);
-             background-color: transparent;
-             border: none;
-             font-size: 1.5rem;
-             color: var(--chat-header-color); /* Use header color */
-             cursor: pointer;
-             padding: 5px;
-             transition: color 0.2s ease;
-             z-index: 20;
-         }
+        .sidebar-toggle:hover {
+            color: var(--sidebar-toggle-hover-color);
+        }
 
-         .theme-toggle:hover {
-             color: var(--sidebar-toggle-hover-color); /* Use highlight color */
-         }
+        .theme-toggle {
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--chat-header-color); /* Use header color */
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.2s ease;
+            z-index: 20;
+            /* Positioning handled by flexbox in header */
+        }
 
+        .theme-toggle:hover {
+            color: var(--sidebar-toggle-hover-color); /* Use highlight color */
+        }
 
         .chat-history {
             flex-grow: 1;
-            padding: 40px;
-            overflow-y: auto;
+            padding: 40px 0; /* Adjusted vertical padding, no horizontal padding here */
+            overflow-y: auto; /* Allow chat history to scroll */
             display: flex;
             flex-direction: column;
             gap: 25px;
             scroll-behavior: smooth;
-            padding-bottom: 140px;
+            padding-bottom: 140px; /* Space for the fixed input container */
+            /* Desktop centering and max-width */
+            max-width: 900px; /* Optimized max-width for chat history */
+            margin: 0 auto; /* Center the chat history horizontally */
+            width: 100%; /* Ensure it takes full width up to max-width */
+             box-sizing: border-box; /* Include padding in width */
         }
 
         .message {
-            max-width: 75%;
+            max-width: 75%; /* Base max-width */
             padding: 18px 25px;
             border-radius: 16px;
             word-wrap: break-word;
@@ -327,9 +391,10 @@
         .chat-input-container {
             position: absolute;
             bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px 40px;
+            /* Centering handled by max-width and margin: auto */
+            left: 0; /* Reset left/right for centering */
+            right: 0; /* Reset left/right for centering */
+            padding: 30px 0; /* Adjusted vertical padding, no horizontal padding here */
             background-color: var(--input-container-bg);
             border-top: 1px solid var(--input-container-border-top);
             display: flex;
@@ -337,6 +402,14 @@
             gap: 25px;
             box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.08);
             transition: background-color 0.3s ease, border-top-color 0.3s ease; /* Smooth transition */
+            /* Desktop centering and max-width for input container */
+            max-width: 900px; /* Match chat history max-width */
+            margin: 0 auto; /* Center the input container horizontally */
+            width: 100%; /* Ensure it takes full width up to max-width */
+            box-sizing: border-box; /* Include padding in the element's total width */
+            /* Add padding inside the centered container for content */
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         .chat-input {
@@ -355,10 +428,12 @@
             background-color: transparent; /* Transparent background to inherit container */
             color: var(--chat-header-color); /* Use header color for input text */
         }
-         .chat-input::placeholder {
-             color: var(--history-item-color); /* Placeholder color */
-             opacity: 0.8;
-         }
+
+        .chat-input::placeholder {
+            color: var(--history-item-color); /* Placeholder color */
+            opacity: 0.8;
+        }
+
         .chat-input:focus {
             border-color: var(--input-focus-border);
             box-shadow: 0 0 0 0.3rem var(--input-focus-shadow);
@@ -376,15 +451,19 @@
             display: flex;
             align-items: center;
             gap: 10px;
-             box-shadow: 0 6px 20px var(--send-button-shadow);
+            box-shadow: 0 6px 20px var(--send-button-shadow);
+             flex-shrink: 0; /* Prevent shrinking */
         }
+
         .send-button:hover {
-             background: linear-gradient(to right, var(--send-button-gradient-end), var(--send-button-gradient-start));
-             box-shadow: 0 8px 25px var(--send-button-shadow);
+            background: linear-gradient(to right, var(--send-button-gradient-end), var(--send-button-gradient-start));
+            box-shadow: 0 8px 25px var(--send-button-shadow);
         }
+
         .send-button:active {
             transform: scale(0.96);
         }
+
         .send-button:disabled {
             background: var(--send-button-disabled-bg);
             cursor: not-allowed;
@@ -392,7 +471,7 @@
         }
 
         .clear-button {
-            background-color: var(--clear-button-bg);
+            background-color: #ef4444;
             color: white;
             padding: 12px 24px;
             border: none;
@@ -403,25 +482,28 @@
             margin-top: 20px;
             align-self: center;
             box-shadow: 0 4px 12px var(--clear-button-shadow);
+             flex-shrink: 0; /* Prevent shrinking */
         }
+
         .clear-button:hover {
-            background-color: var(--clear-button-hover-bg);
+            background-color: #dc2626;
         }
 
         /* --- Mobile Specific Styles (max-width: 768px) --- */
         @media (max-width: 768px) {
             body {
-                padding: 0;
                 min-height: 100vh;
-                overflow-y: auto;
+                overflow-y: auto; /* Allow body scroll on mobile if needed */
             }
+
             .app-container {
                 flex-direction: column;
-                height: auto;
-                min-height: 100vh;
+                height: auto; /* Allow height to adjust */
+                min-height: 100vh; /* Ensure it takes at least full viewport height */
                 border-radius: 0;
                 box-shadow: none;
             }
+
             .sidebar {
                 width: 280px;
                 height: 100%;
@@ -430,229 +512,360 @@
                 top: 0;
                 padding: 20px;
                 border-right: 1px solid var(--sidebar-border);
-                transform: translateX(-100%);
+                transform: translateX(-100%); /* Start off-screen */
                 transition: transform 0.3s ease;
                 box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
                 background-color: var(--sidebar-bg);
+                display: flex; /* Ensure flex column layout */
+                flex-direction: column;
             }
 
-             .sidebar.open {
-                 transform: translateX(0);
-             }
+            .sidebar.open {
+                transform: translateX(0); /* Slide in */
+            }
 
-             .new-chat-button {
-                 margin-bottom: 15px;
-                 padding: 10px 15px;
-                 font-size: 0.9rem;
-                 gap: 8px;
-                 align-self: stretch;
-             }
-             .new-chat-button i {
-                 font-size: 1rem;
-             }
-             .sidebar h3 {
-                 display: block;
-                 font-size: 1.1rem;
-                 margin-bottom: 10px;
-             }
-             .chat-history-list {
-                 flex-direction: column;
-                 flex-grow: 1;
-                 padding-bottom: 10px;
-                 overflow-y: auto;
-             }
-             .chat-history-item {
-                 flex-shrink: 0;
-                 padding: 10px 12px;
-                 font-size: 0.9rem;
-                 border-bottom: 1px solid var(--sidebar-border);
-                 margin-right: 0;
-                 margin-bottom: 8px;
-                 background-color: transparent;
-                 border-radius: 0;
-                 color: var(--history-item-color);
-             }
-             .chat-history-item:last-child {
-                 margin-right: 0;
-             }
-              .chat-history-item.active {
-                 background-color: var(--history-item-active-bg);
-                 color: var(--history-item-active-color);
-                 border-color: transparent;
-             }
+            /* Hide the menu button in the header when the sidebar is open on mobile */
+            .sidebar.open ~ .chat-area .chat-header .sidebar-toggle {
+                display: none;
+            }
+
+
+            /* Style for the close button inside the sidebar */
+            .sidebar-close-button {
+                display: block; /* Show on mobile */
+                background-color: transparent;
+                border: none;
+                font-size: 1.5rem;
+                color: var(--sidebar-close-color);
+                cursor: pointer;
+                padding: 5px;
+                position: absolute; /* Position absolutely within the sidebar */
+                top: 15px; /* Adjust position from top */
+                right: 15px; /* Adjust position from right */
+                z-index: 20;
+                transition: color 0.2s ease;
+            }
+
+            .sidebar-close-button:hover {
+                color: var(--sidebar-close-hover-color);
+            }
+
+            .new-chat-button {
+                margin-bottom: 15px;
+                /* Reduced padding for mobile */
+                padding: 8px 12px; /* Adjusted padding */
+                font-size: 0.9rem;
+                gap: 8px;
+                align-self: stretch; /* Stretch to full width */
+            }
+
+            .new-chat-button i {
+                font-size: 1rem;
+            }
+
+            .sidebar h3 {
+                display: block;
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                margin-top: 40px; /* Add margin to prevent overlap with close button */
+            }
+
+            .chat-history-list {
+                flex-direction: column;
+                flex-grow: 1;
+                padding-bottom: 10px;
+                overflow-y: auto;
+            }
+
+            .chat-history-item {
+                flex-shrink: 0;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                border-bottom: 1px solid var(--sidebar-border);
+                margin-right: 0;
+                margin-bottom: 8px;
+                background-color: transparent;
+                border-radius: 0;
+                color: var(--history-item-color);
+                display: flex; /* Ensure flex layout for icon/text */
+                align-items: center;
+                gap: 10px;
+            }
+
+            .chat-history-item:last-child {
+                margin-right: 0;
+            }
+
+            .chat-history-item.active {
+                background-color: var(--history-item-active-bg);
+                color: var(--history-item-active-color);
+                border-color: transparent;
+            }
 
             .chat-area {
-                height: auto;
+                height: auto; /* Allow height to adjust */
                 flex-grow: 1;
-                padding-bottom: 120px;
-                 width: 100%;
-                 margin-left: 0;
+                padding-bottom: 120px; /* Space for fixed input */
+                width: 100%; /* Take full width */
+                margin-left: 0; /* No left margin on mobile */
+                padding: 0 20px; /* Add horizontal padding to chat area on mobile */
+                box-sizing: border-box;
             }
 
             .chat-header {
                 padding: 15px 20px;
                 font-size: 1.2rem;
-                 justify-content: flex-start;
-                 background-color: var(--chat-header-bg);
-                 color: var(--chat-header-color);
-                 border-bottom: 1px solid var(--chat-header-border);
+                justify-content: flex-start; /* Align items to start */
+                background-color: var(--chat-header-bg);
+                color: var(--chat-header-color);
+                border-bottom: 1px solid var(--chat-header-border);
             }
 
             .sidebar-toggle {
-                 display: block;
-                 position: static;
-                 transform: none;
-                 margin-right: 15px;
-                 color: var(--sidebar-toggle-color);
+                display: block; /* Show toggle button on mobile */
+                position: static; /* Remove absolute positioning */
+                transform: none;
+                margin-right: 15px; /* Space after toggle */
+                color: var(--sidebar-toggle-color);
             }
 
-             .theme-toggle {
-                 position: static;
-                 transform: none;
-                 margin-left: auto;
-                 font-size: 1.2rem;
-                 color: var(--chat-header-color);
-             }
-
+            .theme-toggle {
+                position: static; /* Remove absolute positioning */
+                transform: none;
+                margin-left: auto; /* Push to the right */
+                font-size: 1.2rem;
+                color: var(--chat-header-color);
+            }
 
             .chat-history {
-                padding: 20px;
+                padding: 20px 0; /* Adjusted vertical padding, no horizontal padding here */
                 gap: 15px;
-            }
-             .message {
+                /* Remove desktop centering for mobile */
                 max-width: 100%;
+                margin: 0 auto; /* Center horizontally within the chat-area's padding */
+                width: 100%; /* Take full width up to max-width */
+                box-sizing: border-box; /* Include padding in width */
+            }
+
+            .message {
+                max-width: 100%; /* Allow messages to take full width of the centered chat history */
                 padding: 12px 18px;
                 border-radius: 10px;
-             }
-            .chat-input-container {
-                 position: fixed;
-                 bottom: 0;
-                 left: 0;
-                 right: 0;
-                 padding: 20px;
-                 gap: 15px;
-                 box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-                 background-color: var(--input-container-bg);
-                 border-top: 1px solid var(--input-container-border-top);
             }
+
+            .chat-input-container {
+                position: fixed; /* Fixed at the bottom */
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 20px; /* Padding on mobile */
+                gap: 15px;
+                box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+                background-color: var(--input-container-bg);
+                border-top: 1px solid var(--input-container-border-top);
+                /* Remove desktop centering for mobile */
+                max-width: 100%;
+                margin: 0;
+                width: 100%; /* Take full width */
+                box-sizing: border-box; /* Include padding in width */
+            }
+
             .chat-input {
                 padding: 12px 15px;
                 min-height: 45px;
-                 color: var(--chat-header-color);
+                color: var(--chat-header-color);
             }
-             .chat-input::placeholder {
-                 color: var(--history-item-color);
-             }
+
+            .chat-input::placeholder {
+                color: var(--history-item-color);
+            }
+
             .send-button {
                 padding: 12px 18px;
                 font-size: 1.1rem;
                 justify-content: center;
             }
-             .clear-button {
+
+            .clear-button {
                 margin-top: 10px;
                 padding: 8px 16px;
                 font-size: 0.9rem;
             }
 
-             /* Overlay when sidebar is open */
-             .overlay {
-                 position: fixed;
-                 top: 0;
-                 left: 0;
-                 right: 0;
-                 bottom: 0;
-                 background-color: rgba(0, 0, 0, 0.5);
-                 z-index: 5;
-                 display: none;
-             }
-              .overlay.visible {
-                  display: block;
-              }
+            /* Overlay when sidebar is open */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 5;
+                display: none; /* Hidden by default */
+            }
+
+            .overlay.visible {
+                display: block; /* Show when sidebar is open */
+            }
         }
 
-        /* --- Tablet Specific Styles (max-width: 1024px) and Desktop --- */
+        /* --- Tablet and Desktop Styles (min-width: 769px) --- */
         @media (min-width: 769px) {
-             .chat-area {
-                 /* Margin handled by .app-container:not(.sidebar-collapsed) */
-             }
-             .sidebar.collapsed {
-                 width: 80px;
-                 transform: translateX(0);
-             }
-             .app-container.sidebar-collapsed .chat-area {
-                 margin-left: 80px;
-             }
-             .sidebar.collapsed .new-chat-button .button-text, /* Target the span specifically */
-             .sidebar.collapsed h3,
-             .sidebar.collapsed .chat-history-item span { /* Target the span specifically */
-                 display: none;
-             }
-             .sidebar.collapsed .chat-history-item {
-                 justify-content: center;
-                 padding: 12px 0;
-             }
-             .sidebar.collapsed .chat-history-item i {
-                 margin-right: 0;
-             }
+             /* Ensure chat area takes full remaining width - handled above */
 
+             /* Sidebar toggle is always visible on desktop for collapse */
              .sidebar-toggle {
                  display: block;
              }
+
+             /* Desktop specific adjustments for header */
+             .chat-header {
+                 padding: 20px 40px;
+                 justify-content: space-between; /* Space between toggle, title, theme */
+             }
+
+             .chat-header .sidebar-toggle {
+                 position: static;
+                 transform: none;
+                 margin-right: 20px;
+             }
+
+             .chat-header .theme-toggle {
+                 position: static;
+                 transform: none;
+                 margin-left: 20px;
+             }
+
+             .chat-header h3 {
+                 flex-grow: 1;
+                 text-align: center;
+                 margin: 0;
+             }
+
+             /* Chat history centering - handled above */
+
+             /* Message max-width - handled above */
+
+             /* Input container centering - handled above */
+
+             /* Hide mobile close button on desktop */
+             .sidebar-close-button {
+                 display: none;
+             }
         }
+
+        /* --- Tablet Specific Adjustments (min-width: 769px and max-width: 1024px) --- */
+        @media (min-width: 769px) and (max-width: 1024px) {
+             .sidebar {
+                 width: 250px; /* Slightly smaller sidebar on tablets */
+                 padding: 25px;
+             }
+             /* Adjust chat area width for tablet sidebar - handled above */
+
+             .chat-header {
+                 padding: 18px 25px; /* Adjusted padding */
+                 font-size: 1.3rem; /* Adjusted font size */
+             }
+
+             .chat-history {
+                 padding: 30px 0; /* Adjusted vertical padding */
+                 gap: 20px; /* Adjusted gap */
+                 max-width: 700px; /* Adjusted max-width for messages on tablets */
+                 margin: 0 auto;
+                 width: 100%;
+             }
+
+             .message {
+                 max-width: 100%; /* Allow messages to take full width of the centered chat history */
+             }
+
+             .chat-input-container {
+                 padding: 25px 0; /* Adjusted vertical padding */
+                 gap: 20px; /* Adjusted gap */
+                 max-width: 700px; /* Match chat history max-width */
+                 margin: 0 auto;
+                 width: 100%;
+                 padding-left: 20px; /* Padding inside centered container */
+                 padding-right: 20px; /* Padding inside centered container */
+             }
+
+             .chat-input {
+                 padding: 14px 20px; /* Adjusted padding */
+                 min-height: 50px; /* Adjusted height */
+             }
+
+             .send-button {
+                 padding: 14px 25px; /* Adjusted padding */
+                 font-size: 1.1rem; /* Adjusted font size */
+             }
+
+             .clear-button {
+                 margin-top: 15px; /* Adjusted margin */
+                 padding: 10px 20px; /* Adjusted padding */
+                 font-size: 0.95rem; /* Adjusted font size */
+             }
+        }
+
     </style>
 </head>
 <body>
     <div class="app-container" id="app-container">
         <div class="sidebar" id="sidebar">
-             <button id="new-chat-button" class="new-chat-button">
+            <button id="sidebar-close-button" class="sidebar-close-button">
+                <i class="fas fa-times"></i>
+            </button>
+            <button id="new-chat-button" class="new-chat-button">
                 <i class="fas fa-plus"></i> <span class="button-text">New Chat</span>
             </button>
             <h3>Chat History</h3>
             <ul id="chat-history-list" class="chat-history-list">
                 </ul>
+            <button id="clear-chat-button" class="clear-button">Clear Current Chat</button>
         </div>
 
         <div class="chat-area">
             <div class="chat-header">
-                 <button id="sidebar-toggle" class="sidebar-toggle">
-                     <i class="fas fa-bars"></i>
-                 </button>
-                Geo's AI Assistant
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h3>Geo's AI Assistant</h3>
                 <button id="theme-toggle" class="theme-toggle">
-                    <i class="fas fa-moon"></i> </button>
+                    <i class="fas fa-moon"></i>
+                </button>
             </div>
             <div class="chat-history" id="chat-history">
                 </div>
             <div class="chat-input-container">
                 <textarea id="user-input" class="chat-input" placeholder="Message AI Assistant..."></textarea>
                 <button id="send-button" class="send-button">
-                    <i class="fas fa-paper-plane"></i> </button>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </div>
-             <button id="clear-chat-button" class="clear-button">Clear Current Chat</button>
         </div>
     </div>
     <div class="overlay" id="overlay"></div>
 
     <script>
+        // Get DOM elements
         const appContainer = document.getElementById('app-container');
         const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarToggle = document.getElementById('sidebar-toggle'); // Menu button in header
+        const sidebarCloseButton = document.getElementById('sidebar-close-button'); // Close button in sidebar
         const overlay = document.getElementById('overlay');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
-        const chatHistoryDiv = document.getElementById('chat-history'); // Renamed to avoid conflict
-        const clearChatButton = document.getElementById('clear-chat-button');
-        const newChatButton = document.getElementById('new-chat-button');
-        const chatHistoryList = document.getElementById('chat-history-list');
-        const themeToggle = document.getElementById('theme-toggle');
-        const themeToggleIcon = themeToggle.querySelector('i');
-
+        const chatHistoryDiv = document.getElementById('chat-history'); // Main chat display area
+        const clearChatButton = document.getElementById('clear-chat-button'); // Clear button
+        const newChatButton = document.getElementById('new-chat-button'); // New chat button
+        const chatHistoryList = document.getElementById('chat-history-list'); // Sidebar history list
+        const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
+        const themeToggleIcon = themeToggle.querySelector('i'); // Icon within theme toggle
 
         let isLoading = false; // State to track if a response is being loaded
         let chatHistory = []; // Array to store all chat sessions
         let currentChatIndex = -1; // Index of the currently active chat
 
-         // --- Theme Switching ---
+        // --- Theme Switching ---
         function applyTheme(theme) {
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
@@ -663,66 +876,70 @@
                 themeToggleIcon.classList.remove('fa-sun');
                 themeToggleIcon.classList.add('fa-moon'); // Moon icon for dark mode
             }
-            localStorage.setItem('theme', theme); // Save preference
+            localStorage.setItem('theme', theme); // Save preference to localStorage
         }
 
+        // Toggle between light and dark themes
         function toggleTheme() {
             const currentTheme = localStorage.getItem('theme') || 'light';
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             applyTheme(newTheme);
         }
 
-         // --- Sidebar Toggle ---
+        // --- Sidebar Toggle ---
         function toggleSidebar() {
             // Toggle collapsed class for desktop view transition
-            sidebar.classList.toggle('collapsed');
-            appContainer.classList.toggle('sidebar-collapsed');
-
-            // Handle mobile view (fixed position, slide in/out)
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth > 768) { // Apply collapsed class only on desktop
+                 sidebar.classList.toggle('collapsed');
+                 appContainer.classList.toggle('sidebar-collapsed');
+            } else { // Handle mobile view (fixed position, slide in/out)
                 sidebar.classList.toggle('open');
                 overlay.classList.toggle('visible');
             }
         }
 
-         // Close sidebar when clicking outside on mobile
+        // Close sidebar when clicking outside overlay on mobile
         overlay.addEventListener('click', () => {
              if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                 toggleSidebar();
+                 toggleSidebar(); // Close sidebar
              }
         });
 
         // Function to add a message to the main chat history div
         function addMessageToMainChat(text, sender) {
-             const messageDiv = document.createElement('div');
+            const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             if (sender === 'user') {
                 messageDiv.classList.add('user-message');
             } else {
                 messageDiv.classList.add('ai-message');
             }
+            // Use innerHTML to potentially render markdown or HTML from AI response
+            // Basic text content for now:
             messageDiv.textContent = text;
+
             chatHistoryDiv.appendChild(messageDiv);
 
-            // Scroll to the bottom of the chat history
+            // Scroll to the bottom of the chat history after adding a message
             chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
         }
 
-        // Function to add a loading indicator
+        // Function to add a loading indicator message
         function addLoadingIndicator() {
             const loadingDiv = document.createElement('div');
             loadingDiv.classList.add('loading-message');
-            loadingDiv.id = 'loading-indicator';
+            loadingDiv.id = 'loading-indicator'; // Assign an ID to easily remove it
             loadingDiv.textContent = 'AI is thinking...';
             chatHistoryDiv.appendChild(loadingDiv);
-            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight; // Scroll to show loading
+            // Scroll to show the loading indicator
+            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
         }
 
-        // Function to remove the loading indicator
+        // Function to remove the loading indicator message
         function removeLoadingIndicator() {
             const loadingDiv = document.getElementById('loading-indicator');
             if (loadingDiv) {
-                loadingDiv.remove();
+                loadingDiv.remove(); // Remove the element from the DOM
             }
         }
 
@@ -732,64 +949,75 @@
             if (savedHistory) {
                 chatHistory = JSON.parse(savedHistory);
             } else {
-                // Start a new chat if no history is found
+                // If no history is found, start a new chat
                 startNewChat();
             }
+            // Render the list of chats in the sidebar
             renderChatHistoryList();
-            // Load the latest chat if history exists
+            // Load the latest chat session if history exists
             if (chatHistory.length > 0) {
-                loadChat(chatHistory.length - 1);
+                loadChat(chatHistory.length - 1); // Load the last chat by default
             } else {
-                 // If no history was loaded and startNewChat was called,
-                 // ensure the initial message is displayed.
+                 // If startNewChat was called and created the first chat,
+                 // ensure the initial message is displayed if the div is empty.
                  if (chatHistoryDiv.innerHTML === '') {
                       addMessageToMainChat('Hello! How can I help you today?', 'ai');
                  }
             }
         }
 
-        // Function to save chat history to localStorage
+        // Function to save the current state of chat history to localStorage
         function saveChatHistory() {
             localStorage.setItem('aiChatHistory', JSON.stringify(chatHistory));
         }
 
-        // Function to render the chat history list in the sidebar
+        // Function to render the list of chat sessions in the sidebar
         function renderChatHistoryList() {
-            chatHistoryList.innerHTML = ''; // Clear current list
+            chatHistoryList.innerHTML = ''; // Clear current list items
 
             if (chatHistory.length === 0) {
-                chatHistoryList.innerHTML = '<li class="text-sm text-gray-500 italic">No chats yet.</li>';
+                // Display a message if there are no chats
+                chatHistoryList.innerHTML = '<li class="text-sm text-gray-500 italic p-3">No chats yet.</li>';
                 return;
             }
 
+            // Create and append list items for each chat session
             chatHistory.forEach((chat, index) => {
                 const listItem = document.createElement('li');
                 listItem.classList.add('chat-history-item');
-                 if (index === currentChatIndex) {
-                     listItem.classList.add('active'); // Highlight active chat
-                 }
-                // Use the first user message as the title, or a default
-                const chatTitle = chat.messages.find(msg => msg.sender === 'user')?.text.substring(0, 30) + '...' || `Chat ${index + 1}`;
-                listItem.textContent = chatTitle;
-                listItem.dataset.chatIndex = index; // Store the index
 
-                // Add click event listener to load the chat
+                // Add 'active' class if this is the currently selected chat
+                if (index === currentChatIndex) {
+                    listItem.classList.add('active');
+                }
+
+                // Determine the chat title (use the first user message or a default)
+                const firstUserMessage = chat.messages.find(msg => msg.sender === 'user');
+                const chatTitle = firstUserMessage ? firstUserMessage.text.substring(0, 30) + (firstUserMessage.text.length > 30 ? '...' : '') : `Chat ${index + 1}`;
+
+                // Add an icon and the text content
+                 listItem.innerHTML = `<i class="fas fa-comment-dots"></i> <span>${chatTitle}</span>`;
+
+                listItem.dataset.chatIndex = index; // Store the index as a data attribute
+
+                // Add click event listener to load the corresponding chat
                 listItem.addEventListener('click', () => {
                     loadChat(index);
-                     // Close sidebar on mobile after selecting a chat
-                     if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                         toggleSidebar();
-                     }
+                    // Close sidebar on mobile after selecting a chat
+                    if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                        toggleSidebar();
+                    }
                 });
 
-                chatHistoryList.appendChild(listItem);
+                chatHistoryList.appendChild(listItem); // Add the item to the list
             });
         }
 
-        // Function to load a specific chat into the main chat area
+        // Function to load a specific chat session into the main chat area
         function loadChat(index) {
+            // Validate the index
             if (index < 0 || index >= chatHistory.length) {
-                console.error("Invalid chat index");
+                console.error("Invalid chat index:", index);
                 return;
             }
 
@@ -798,78 +1026,97 @@
                  saveChatHistory(); // Save the current chat state
             }
 
-            currentChatIndex = index;
-            chatHistoryDiv.innerHTML = ''; // Clear current messages
+            currentChatIndex = index; // Set the new current chat index
+            chatHistoryDiv.innerHTML = ''; // Clear current messages from the display
 
-            // Add messages from the selected chat
+            // Add messages from the selected chat session to the display
             chatHistory[currentChatIndex].messages.forEach(message => {
                 addMessageToMainChat(message.text, message.sender);
             });
 
-            // Scroll to the bottom of the loaded chat
+            // Scroll to the bottom of the loaded chat history
             chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight;
 
-            // Highlight the selected chat in the sidebar
-            renderChatHistoryList(); // Re-render to update active class
+            // Update the sidebar list to highlight the newly active chat
+            renderChatHistoryList();
+
+            userInput.focus(); // Focus the input field
         }
 
         // Function to start a new chat session
         function startNewChat() {
-             // Save the current chat before starting a new one (if one is active)
+            // Save the current chat before starting a new one (if one is active)
             if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
                  saveChatHistory(); // Save before creating a new one
             }
 
+            // Create a new chat object with an initial AI message
             const newChat = {
-                id: Date.now(), // Simple unique ID
+                id: Date.now(), // Simple unique ID based on timestamp
                 messages: [{ text: 'Hello! How can I help you today?', sender: 'ai' }] // Initial AI message
             };
-            chatHistory.push(newChat);
-            currentChatIndex = chatHistory.length - 1; // Set new chat as current
 
-            chatHistoryDiv.innerHTML = ''; // Clear main chat area
-            addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Add initial message
+            chatHistory.push(newChat); // Add the new chat to the history array
+            currentChatIndex = chatHistory.length - 1; // Set the new chat as the current one
 
-            renderChatHistoryList(); // Update sidebar
-            saveChatHistory(); // Save the updated history
-            userInput.focus(); // Focus input
+            chatHistoryDiv.innerHTML = ''; // Clear the main chat area
+            addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Display the initial message
 
-             // Close sidebar on mobile after starting a new chat
-             if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
-                 toggleSidebar();
-             }
+            renderChatHistoryList(); // Update the sidebar history list
+            saveChatHistory(); // Save the updated history to localStorage
+
+            userInput.value = ''; // Clear the input field
+            userInput.focus(); // Focus the input field
+
+            // Close sidebar on mobile after starting a new chat
+            if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
         }
 
-
-        // Function to handle sending a message
+        // Function to handle sending a message to the AI
         async function sendMessage() {
-            if (isLoading) { // Prevent sending multiple messages while loading
+            // Prevent sending if currently loading a response
+            if (isLoading) {
                 return;
             }
 
             const prompt = userInput.value.trim();
+
+            // Don't send empty messages
             if (prompt === '') {
-                return; // Don't send empty messages
+                return;
             }
 
-            // Add user message to current chat and display
+            // Add user message to the current chat session and display it
             const userMessage = { text: prompt, sender: 'user' };
-            // Ensure currentChatIndex is valid before pushing
+
+            // Ensure a chat is active before adding the message
             if (currentChatIndex === -1 || !chatHistory[currentChatIndex]) {
-                 // If no chat is active, start a new one
+                 // If no chat is active (shouldn't happen if loadChatHistory works), start a new one
                  startNewChat();
             }
             chatHistory[currentChatIndex].messages.push(userMessage);
             addMessageToMainChat(userMessage.text, userMessage.sender);
 
-            // Clear the input area
+            // Clear the input area immediately
             userInput.value = '';
+             // Adjust textarea height after clearing
+             userInput.style.height = 'auto';
+             userInput.style.height = userInput.scrollHeight + 'px';
+
 
             // Show loading indicator and disable input/button
             isLoading = true;
             sendButton.disabled = true;
             userInput.disabled = true;
-            addLoadingIndicator(); // Call the function here
+            addLoadingIndicator(); // Display the loading message
+
+            // --- Prepare chat history for backend ---
+            // Send the last N messages (e.g., last 20) for context to the backend
+            // This helps the AI understand the conversation flow.
+            // Adjust the number in slice() to control how many previous messages are sent.
+            const historyForBackend = chatHistory[currentChatIndex].messages.slice(-20);
 
             // --- Backend API Call ---
             // This calls your Python backend hosted on Render
@@ -880,20 +1127,25 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ prompt: prompt }),
+                    // Send the current prompt AND relevant history
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        history: historyForBackend // Sending the history here
+                    }),
                 });
 
                 removeLoadingIndicator(); // Remove loading indicator once response is received
 
+                // Check if the response was successful
                 if (!response.ok) {
-                     // Attempt to parse error details from backend response
+                    // Attempt to parse error details from backend response
                     const errorText = await response.text(); // Get raw text first
                     let errorDetails = `HTTP error! status: ${response.status}`;
                     try {
-                         const errorJson = JSON.parse(errorText);
-                         errorDetails += `, details: ${errorJson.error || 'Unknown error'}`;
+                        const errorJson = JSON.parse(errorText);
+                        errorDetails += `, details: ${errorJson.error || 'Unknown error'}`;
                     } catch (e) {
-                         errorDetails += `, response: ${errorText.substring(0, 100)}...`; // Show part of response if not JSON
+                        errorDetails += `, response: ${errorText.substring(0, 100)}...`; // Show part of response if not JSON
                     }
                     throw new Error(errorDetails);
                 }
@@ -901,27 +1153,28 @@
                 const data = await response.json();
                 const aiResponseText = data.text;
 
-                // Add AI message to current chat and display
+                // Add AI message to the current chat session and display it
                 const aiMessage = { text: aiResponseText, sender: 'ai' };
-                 // Ensure currentChatIndex is still valid before pushing AI message
-                 if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
+
+                // Ensure currentChatIndex is still valid before pushing AI message
+                if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
                     chatHistory[currentChatIndex].messages.push(aiMessage);
                     addMessageToMainChat(aiMessage.text, aiMessage.sender);
                     saveChatHistory(); // Save history after successful message exchange
                     renderChatHistoryList(); // Update sidebar in case the title changed
-                 } else {
-                     // If chat somehow became invalid during the request, just display the message
-                     addMessageToMainChat(aiMessage.text, aiMessage.sender);
-                 }
-
+                } else {
+                    // If chat somehow became invalid during the request, just display the message
+                    addMessageToMainChat(aiMessage.text, aiMessage.sender);
+                }
 
             } catch (error) {
                 console.error('Error communicating with backend:', error);
                 removeLoadingIndicator(); // Remove loading indicator on error
-                addMessageToMainChat('Sorry, there was an error getting a response from the AI. Details in console.', 'ai');
-                 // Note: Error messages are not saved to history in this example
+                // Display a user-friendly error message
+                addMessageToMainChat('Sorry, there was an error getting a response from the AI. Please try again.', 'ai');
+                // Note: Error messages are not saved to history in this example to avoid clutter
             } finally {
-                // Re-enable input and button
+                // Re-enable input and button regardless of success or failure
                 isLoading = false;
                 sendButton.disabled = false;
                 userInput.disabled = false;
@@ -930,66 +1183,103 @@
             // --- End Backend API Call ---
         }
 
-        // Function to clear the current chat history
+        // Function to clear all messages in the current chat session
         function clearChat() {
+            // Check if a chat is currently active
             if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
-                // Keep the initial AI message, clear the rest
+                // Keep only the initial AI message, discarding the rest
                 chatHistory[currentChatIndex].messages = [{ text: 'Hello! How can I help you today?', sender: 'ai' }];
-                chatHistoryDiv.innerHTML = ''; // Clear main chat area
-                addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Add initial message
-                saveChatHistory(); // Save the cleared chat
-                renderChatHistoryList(); // Update sidebar (title might change)
+
+                chatHistoryDiv.innerHTML = ''; // Clear the main chat display area
+                addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Display the initial message again
+
+                saveChatHistory(); // Save the cleared chat session
+                renderChatHistoryList(); // Update sidebar (the title might revert to default)
             }
         }
 
-        // Event listeners
+        // --- Event Listeners ---
+        // Send message on button click
         sendButton.addEventListener('click', sendMessage);
 
+        // Send message on Enter key press (unless Shift is held)
         userInput.addEventListener('keypress', function(event) {
             if (event.key === 'Enter' && !event.shiftKey) {
-                event.preventDefault();
+                event.preventDefault(); // Prevent default newline
                 sendMessage();
             }
         });
 
+        // Adjust textarea height dynamically based on content
+         userInput.addEventListener('input', function() {
+             this.style.height = 'auto'; // Reset height to recalculate
+             this.style.height = this.scrollHeight + 'px'; // Set height to scroll height
+         });
+
+
+        // Clear current chat on button click
         clearChatButton.addEventListener('click', clearChat);
+
+        // Start a new chat on button click
         newChatButton.addEventListener('click', startNewChat);
-        sidebarToggle.addEventListener('click', toggleSidebar); // Add event listener to toggle button
-        themeToggle.addEventListener('click', toggleTheme); // Add event listener to theme toggle button
 
+        // Toggle sidebar visibility on menu button click
+        sidebarToggle.addEventListener('click', toggleSidebar);
 
-        // Initial load
+        // Close sidebar on close button click (mobile only)
+        sidebarCloseButton.addEventListener('click', toggleSidebar);
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // --- Initial Load and Resize Handling ---
+        // Load chat history and set initial state when the window is fully loaded
         window.onload = () => {
-            loadChatHistory(); // Load history on page load
-            userInput.focus(); // Focus input
+            loadChatHistory(); // Load history from localStorage
+            userInput.focus(); // Focus the input field
 
             // Set initial sidebar state based on screen width
+            // On smaller screens, sidebar is collapsed by default
             if (window.innerWidth <= 768) {
-                sidebar.classList.add('collapsed');
-                appContainer.classList.add('sidebar-collapsed');
+                sidebar.classList.add('collapsed'); // Add collapsed class (mostly for internal state tracking)
+                appContainer.classList.add('sidebar-collapsed'); // Add class to app container to adjust chat area
+            } else {
+                 // On larger screens, ensure sidebar is open initially
+                 sidebar.classList.remove('collapsed', 'open');
+                 appContainer.classList.remove('sidebar-collapsed');
+                 overlay.classList.remove('visible');
             }
 
-            // Apply saved theme preference
+            // Apply the saved theme preference or default to light
             const savedTheme = localStorage.getItem('theme') || 'light';
             applyTheme(savedTheme);
+
+             // Adjust initial textarea height
+             userInput.style.height = 'auto';
+             userInput.style.height = userInput.scrollHeight + 'px';
         };
 
-        // Adjust sidebar state on window resize
+        // Adjust sidebar state and layout on window resize
         window.addEventListener('resize', () => {
+            // If resizing to a larger screen (desktop)
             if (window.innerWidth > 768) {
-                // On larger screens, ensure sidebar is open and remove mobile-specific classes
+                // Ensure sidebar is open and remove mobile-specific classes
                 sidebar.classList.remove('collapsed', 'open');
                 appContainer.classList.remove('sidebar-collapsed');
-                overlay.classList.remove('visible');
-            } else {
-                // On smaller screens, ensure sidebar is collapsed unless explicitly opened
-                 if (!sidebar.classList.contains('open')) {
-                    sidebar.classList.add('collapsed');
-                    appContainer.classList.add('sidebar-collapsed');
-                 }
-            }
-        });
+                overlay.classList.remove('visible'); // Hide overlay
 
+            } else { // If resizing to a smaller screen (mobile)
+                // On smaller screens, ensure sidebar is collapsed unless it was explicitly opened
+                 if (!sidebar.classList.contains('open')) {
+                    sidebar.classList.add('collapsed'); // Add collapsed class
+                    appContainer.classList.add('sidebar-collapsed'); // Add class to app container
+                 }
+                 // If sidebar was open, keep it open (handled by CSS transition)
+            }
+             // Re-adjust textarea height on resize
+             userInput.style.height = 'auto';
+             userInput.style.height = userInput.scrollHeight + 'px';
+        });
 
     </script>
 </body>
