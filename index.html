@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <style>
         /* CSS Variables for Themes */
         :root {
@@ -52,6 +54,10 @@
             /* Added for close button */
             --sidebar-close-color: #475569; /* Slate */
             --sidebar-close-hover-color: #1e293b; /* Dark Slate */
+            /* Added for copy button (message level) */
+            --message-copy-button-color: #94a3b8; /* Slate 400 */
+            --message-copy-button-hover-color: #4f46e5; /* Indigo */
+            --copy-button-feedback-color: #16a34a; /* Green 600 */
         }
 
         /* Dark Theme - Deeper, Professional Tones */
@@ -97,6 +103,10 @@
             /* Added for close button */
             --sidebar-close-color: #a0aec0; /* Light blue-gray */
             --sidebar-close-hover-color: #e2e8f0; /* Light gray */
+            /* Added for copy button (message level) */
+            --message-copy-button-color: #a0aec0; /* Light blue-gray */
+            --message-copy-button-hover-color: #e2e8f0; /* Light gray */
+            --copy-button-feedback-color: #4ade80; /* Green 400 */
         }
 
         /* Base styles using variables */
@@ -361,6 +371,7 @@
             word-wrap: break-word;
             line-height: 1.7;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative; /* Needed for absolute positioning of copy button */
         }
 
         .user-message {
@@ -376,6 +387,126 @@
             border: 1px solid var(--message-ai-border);
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Smooth transition */
         }
+
+         /* Style for rendered Markdown within AI messages */
+         .ai-message p {
+             margin-bottom: 1em; /* Add space between paragraphs */
+         }
+         .ai-message h1, .ai-message h2, .ai-message h3, .ai-message h4, .ai-message h5, .ai-message h6 {
+             margin-top: 1.5em; /* Add space above headings */
+             margin-bottom: 0.5em; /* Add space below headings */
+             font-weight: bold; /* Make headings bold */
+         }
+         .ai-message ul, .ai-message ol {
+             margin-bottom: 1em; /* Add space below lists */
+             padding-left: 20px; /* Add padding for list markers */
+         }
+         .ai-message li {
+             margin-bottom: 0.5em; /* Add space between list items */
+         }
+         .ai-message code {
+             background-color: rgba(0, 0, 0, 0.05); /* Light background for inline code */
+             padding: 2px 4px;
+             border-radius: 4px;
+             font-family: monospace;
+         }
+         .ai-message pre {
+             position: relative; /* Needed for absolute positioning of code block copy button */
+             background-color: rgba(0, 0, 0, 0.08); /* Slightly darker background for code blocks */
+             padding: 10px;
+             border-radius: 8px;
+             overflow-x: auto; /* Add horizontal scroll for long code lines */
+             margin-bottom: 1em;
+             padding-top: 30px; /* Add space for the copy button at the top */
+         }
+         .ai-message pre code {
+             padding: 0; /* Remove padding for code inside pre */
+             background-color: transparent; /* Remove background for code inside pre */
+             display: block; /* Ensure code takes full width of pre */
+         }
+
+        /* Style for the message-level copy button (hidden by default) */
+        .message > .copy-button {
+            position: absolute;
+            top: 8px; /* Position from the top */
+            right: 8px; /* Position from the right */
+            background-color: transparent;
+            border: none;
+            color: var(--message-copy-button-color);
+            font-size: 0.9rem;
+            cursor: pointer;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.2s ease, color 0.2s ease;
+            padding: 4px; /* Add some padding for easier clicking */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        .message:hover > .copy-button {
+            opacity: 1; /* Show on message hover */
+        }
+
+        .message > .copy-button:hover {
+            color: var(--message-copy-button-hover-color);
+        }
+
+        /* Style for the code block copy button */
+        .code-block-copy-button {
+            position: absolute;
+            top: 5px; /* Position from the top of the pre block */
+            right: 5px; /* Position from the right of the pre block */
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+            border: none;
+            color: var(--copy-button-color); /* Use the same color variable */
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 3px 6px;
+            border-radius: 4px;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+            z-index: 1; /* Ensure it's above the code */
+        }
+
+        .ai-message pre:hover .code-block-copy-button {
+             opacity: 1; /* Show on code block hover */
+        }
+
+        .code-block-copy-button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--copy-button-hover-color);
+        }
+
+
+        /* Feedback message for copy */
+        .copy-feedback {
+            position: absolute;
+            top: 8px;
+            right: 30px; /* Position to the left of the message copy button */
+            font-size: 0.8rem;
+            color: var(--copy-button-feedback-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-feedback.visible {
+            opacity: 1;
+        }
+
+        /* Feedback message for code block copy */
+        .code-block-copy-feedback {
+            position: absolute;
+            top: 8px;
+            right: 40px; /* Position to the left of the code block copy button */
+            font-size: 0.7rem;
+            color: var(--copy-button-feedback-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1; /* Ensure it's above the code */
+        }
+
+        .code-block-copy-feedback.visible {
+            opacity: 1;
+        }
+
 
         /* Loading indicator */
         .loading-message {
@@ -457,7 +588,7 @@
 
         .send-button:hover {
             background: linear-gradient(to right, var(--send-button-gradient-end), var(--send-button-gradient-start));
-            box-shadow: 0 8px 25px var(--send-button-shadow);
+            box-shadow: 8px 25px var(--send-button-shadow);
         }
 
         .send-button:active {
@@ -510,7 +641,8 @@
                 position: fixed;
                 left: 0;
                 top: 0;
-                padding: 20px;
+                /* Adjusted top padding for close button space */
+                padding: 25px 20px 20px 20px; /* Top, Right, Bottom, Left */
                 border-right: 1px solid var(--sidebar-border);
                 transform: translateX(-100%); /* Start off-screen */
                 transition: transform 0.3s ease;
@@ -540,8 +672,10 @@
                 cursor: pointer;
                 padding: 5px;
                 position: absolute; /* Position absolutely within the sidebar */
-                top: 15px; /* Adjust position from top */
-                right: 15px; /* Adjust position from right */
+                /* Adjusted top position to move it up */
+                top: 10px; /* Adjusted position from top */
+                /* Adjusted right position to be closer to the edge */
+                right: 5px; /* Adjusted position from right */
                 z-index: 20;
                 transition: color 0.2s ease;
             }
@@ -551,6 +685,8 @@
             }
 
             .new-chat-button {
+                /* Added top margin to move it down */
+                margin-top: 20px; /* Added top margin */
                 margin-bottom: 15px;
                 /* Reduced padding for mobile */
                 padding: 8px 12px; /* Adjusted padding */
@@ -567,7 +703,8 @@
                 display: block;
                 font-size: 1.1rem;
                 margin-bottom: 10px;
-                margin-top: 40px; /* Add margin to prevent overlap with close button */
+                /* Adjusted top margin to account for new chat button position */
+                margin-top: 30px; /* Adjusted margin */
             }
 
             .chat-history-list {
@@ -777,6 +914,8 @@
 
              .message {
                  max-width: 100%; /* Allow messages to take full width of the centered chat history */
+                 padding: 12px 18px;
+                 border-radius: 10px;
              }
 
              .chat-input-container {
@@ -836,7 +975,25 @@
             <div class="chat-history" id="chat-history">
                 </div>
             <div class="chat-input-container">
+                <input type="file" id="image-input" accept="image/*" class="hidden">
+                 <input type="file" id="pdf-input" accept=".pdf" class="hidden">
+                 <input type="file" id="code-input" accept=".txt,.html,.css,.js,.py,.java,.c,.cpp,.json,.xml,.md" class="hidden">
+
+
+                <button id="file-upload-button" class="p-3 text-gray-500 hover:text-indigo-600 transition duration-200 rounded-full">
+                    <i class="fas fa-paperclip text-xl"></i>
+                </button>
+
                 <textarea id="user-input" class="chat-input" placeholder="Message AI Assistant..."></textarea>
+
+                 <div id="file-preview-container" class="absolute bottom-full left-0 right-0 mb-2 p-2 bg-white rounded-lg shadow-md hidden flex items-center justify-between">
+                     <div id="file-preview-content" class="flex items-center">
+                         </div>
+                     <button id="remove-file-button" class="text-red-500 hover:text-red-700">
+                         <i class="fas fa-times-circle"></i>
+                     </button>
+                 </div>
+
                 <button id="send-button" class="send-button">
                     <i class="fas fa-paper-plane"></i>
                 </button>
@@ -861,9 +1018,21 @@
         const themeToggle = document.getElementById('theme-toggle'); // Theme toggle button
         const themeToggleIcon = themeToggle.querySelector('i'); // Icon within theme toggle
 
+        // --- File Upload Elements ---
+        const fileUploadButton = document.getElementById('file-upload-button');
+        const imageInput = document.getElementById('image-input'); // Keep image input separate for accept attribute
+        const pdfInput = document.getElementById('pdf-input'); // Input for PDF files
+        const codeInput = document.getElementById('code-input'); // Input for code/text files
+        const filePreviewContainer = document.getElementById('file-preview-container');
+        const filePreviewContent = document.getElementById('file-preview-content'); // Container for preview content
+        const removeFileButton = document.getElementById('remove-file-button');
+
         let isLoading = false; // State to track if a response is being loaded
         let chatHistory = []; // Array to store all chat sessions
         let currentChatIndex = -1; // Index of the currently active chat
+        let selectedFile = null; // Variable to store the selected file object
+        let selectedFileBase64 = null; // Variable to store image Base64 or file data as string
+
 
         // --- Theme Switching ---
         function applyTheme(theme) {
@@ -905,18 +1074,152 @@
              }
         });
 
+        // Function to copy text to clipboard and show feedback
+        async function copyTextToClipboard(text, feedbackElement) {
+             try {
+                 await navigator.clipboard.writeText(text);
+                 console.log('Text copied to clipboard');
+                 if (feedbackElement) {
+                     feedbackElement.textContent = 'Copied!';
+                     feedbackElement.classList.add('visible');
+                     setTimeout(() => {
+                         feedbackElement.classList.remove('visible');
+                     }, 1500); // Hide feedback after 1.5 seconds
+                 }
+             } catch (err) {
+                 console.error('Failed to copy text: ', err);
+                 if (feedbackElement) {
+                     feedbackElement.textContent = 'Failed!';
+                     feedbackElement.style.color = '#ef4444'; // Red color for error
+                     feedbackElement.classList.add('visible');
+                     setTimeout(() => {
+                         feedbackElement.classList.remove('visible');
+                         feedbackElement.style.color = ''; // Reset color
+                     }, 1500);
+                 }
+             }
+         }
+
+
         // Function to add a message to the main chat history div
-        function addMessageToMainChat(text, sender) {
+        function addMessageToMainChat(message) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            if (sender === 'user') {
-                messageDiv.classList.add('user-message');
-            } else {
-                messageDiv.classList.add('ai-message');
+            messageDiv.classList.add(message.sender + '-message'); // Add sender class
+
+            // Create an inner div for message content
+            const messageContentDiv = document.createElement('div');
+            messageContentDiv.classList.add('message-content');
+
+            // Add file preview/info if present in the message
+            if (message.file) {
+                 const fileInfoDiv = document.createElement('div');
+                 fileInfoDiv.classList.add('file-info', 'flex', 'items-center', 'mb-2', 'p-2', 'bg-gray-200', 'rounded-md'); // Basic styling
+                 let fileIconClass = 'fas fa-file'; // Default icon
+
+                 if (message.file.type.startsWith('image/')) {
+                     const imgElement = document.createElement('img');
+                     imgElement.src = message.file.data; // Base64 data for image
+                     imgElement.alt = "Uploaded image";
+                     imgElement.classList.add('max-w-xs', 'max-h-24', 'rounded-md', 'mr-2'); // Image preview
+                     fileInfoDiv.appendChild(imgElement);
+                 } else if (message.file.type === 'application/pdf') {
+                     fileIconClass = 'fas fa-file-pdf';
+                     const iconElement = document.createElement('i');
+                     iconElement.classList.add(fileIconClass, 'text-red-600', 'text-xl', 'mr-2');
+                     fileInfoDiv.appendChild(iconElement);
+                 } else { // Assume code or other text file
+                     fileIconClass = 'fas fa-file-code'; // Generic code icon
+                     const iconElement = document.createElement('i');
+                     iconElement.classList.add(fileIconClass, 'text-blue-600', 'text-xl', 'mr-2');
+                     fileInfoDiv.appendChild(iconElement);
+                 }
+
+                 const fileNameSpan = document.createElement('span');
+                 fileNameSpan.textContent = message.file.name;
+                 fileNameSpan.classList.add('text-sm', 'font-semibold', 'text-gray-800', 'truncate');
+                 fileInfoDiv.appendChild(fileNameSpan);
+
+                 messageContentDiv.appendChild(fileInfoDiv);
             }
-            // Use innerHTML to potentially render markdown or HTML from AI response
-            // Basic text content for now:
-            messageDiv.textContent = text;
+
+
+            if (message.sender === 'user') {
+                 // For user messages, just set textContent as they don't need Markdown rendering
+                messageContentDiv.textContent += message.text; // Append text after file info if any
+
+                 /*
+                 // Add message-level copy button for user messages (Optional - uncomment if needed)
+                 const copyButton = document.createElement('button');
+                 copyButton.classList.add('copy-button');
+                 copyButton.innerHTML = '<i class="fas fa-copy"></i>'; // Copy icon
+                 copyButton.title = 'Copy message'; // Add tooltip
+
+                 const feedbackElement = document.createElement('span');
+                 feedbackElement.classList.add('copy-feedback');
+                 messageDiv.appendChild(feedbackElement); // Add feedback element
+
+                 copyButton.addEventListener('click', () => {
+                     // Copy text content (file content is not copied with message text)
+                     copyTextToClipboard(message.text, feedbackElement);
+                 });
+                 messageDiv.appendChild(copyButton);
+                 */
+
+
+            } else { // sender === 'ai'
+                // For AI messages, use innerHTML and marked.js to render Markdown
+                messageContentDiv.innerHTML += marked.parse(message.text); // Append rendered markdown after file info if any
+
+                // Add message-level copy button for AI messages (optional, can be removed if only code blocks need copy)
+                 const messageCopyButton = document.createElement('button');
+                 messageCopyButton.classList.add('copy-button');
+                 messageCopyButton.innerHTML = '<i class="fas fa-copy"></i>'; // Copy icon
+                 messageCopyButton.title = 'Copy message'; // Add tooltip
+
+                 const messageFeedbackElement = document.createElement('span');
+                 messageFeedbackElement.classList.add('copy-feedback');
+                 messageDiv.appendChild(messageFeedbackElement); // Add feedback element
+
+                 messageCopyButton.addEventListener('click', () => {
+                     copyTextToClipboard(message.text, messageFeedbackElement);
+                 });
+                 messageDiv.appendChild(messageCopyButton);
+
+
+                // --- Add Copy Buttons to Code Blocks ---
+                // Find all <pre><code> elements after rendering Markdown
+                const codeBlocks = messageContentDiv.querySelectorAll('pre code');
+
+                codeBlocks.forEach(codeElement => {
+                    const preElement = codeElement.parentElement; // Get the parent <pre> element
+
+                    // Create a copy button for the code block
+                    const codeBlockCopyButton = document.createElement('button');
+                    codeBlockCopyButton.classList.add('code-block-copy-button');
+                    codeBlockCopyButton.innerHTML = '<i class="fas fa-copy"></i> Copy'; // Copy icon and text
+                    codeBlockCopyButton.title = 'Copy code block'; // Add tooltip
+
+                    // Create a feedback element for the code block copy
+                    const codeBlockFeedbackElement = document.createElement('span');
+                    codeBlockFeedbackElement.classList.add('code-block-copy-feedback');
+                    preElement.appendChild(codeBlockFeedbackElement); // Add feedback element
+
+                    // Add event listener to copy the code block content
+                    codeBlockCopyButton.addEventListener('click', () => {
+                        // Get the plain text content of the code element
+                        const codeText = codeElement.textContent;
+                        copyTextToClipboard(codeText, codeBlockFeedbackElement);
+                    });
+
+                    // Append the copy button to the <pre> element
+                    preElement.appendChild(codeBlockCopyButton);
+                });
+            }
+
+            // Append message content div to the message div
+            messageDiv.appendChild(messageContentDiv);
+
 
             chatHistoryDiv.appendChild(messageDiv);
 
@@ -961,7 +1264,7 @@
                  // If startNewChat was called and created the first chat,
                  // ensure the initial message is displayed if the div is empty.
                  if (chatHistoryDiv.innerHTML === '') {
-                      addMessageToMainChat('Hello! How can I help you today?', 'ai');
+                      addMessageToMainChat({ text: 'Hello! How can I help you today?', sender: 'ai' });
                  }
             }
         }
@@ -1031,7 +1334,8 @@
 
             // Add messages from the selected chat session to the display
             chatHistory[currentChatIndex].messages.forEach(message => {
-                addMessageToMainChat(message.text, message.sender);
+                // Pass the entire message object
+                addMessageToMainChat(message);
             });
 
             // Scroll to the bottom of the loaded chat history
@@ -1060,13 +1364,16 @@
             currentChatIndex = chatHistory.length - 1; // Set the new chat as the current one
 
             chatHistoryDiv.innerHTML = ''; // Clear the main chat area
-            addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Display the initial message
+            addMessageToMainChat({ text: 'Hello! How can I help you today?', sender: 'ai' }); // Display the initial message
 
             renderChatHistoryList(); // Update the sidebar history list
             saveChatHistory(); // Save the updated history to localStorage
 
             userInput.value = ''; // Clear the input field
             userInput.focus(); // Focus the input field
+
+            // Clear any selected file when starting a new chat
+            clearSelectedFile();
 
             // Close sidebar on mobile after starting a new chat
             if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
@@ -1076,20 +1383,26 @@
 
         // Function to handle sending a message to the AI
         async function sendMessage() {
-            // Prevent sending if currently loading a response
-            if (isLoading) {
+            // Prevent sending if currently loading a response or no prompt/file
+            if (isLoading || (userInput.value.trim() === '' && selectedFile === null)) {
                 return;
             }
 
             const prompt = userInput.value.trim();
+            const file = selectedFile; // Get the selected file object
 
-            // Don't send empty messages
-            if (prompt === '') {
-                return;
+            // Add user message (and file if selected) to the current chat session and display it
+            const userMessage = { text: prompt, sender: 'user', file: null };
+
+            // Prepare file data for the message object and backend
+            if (file) {
+                userMessage.file = {
+                    name: file.name,
+                    type: file.type,
+                    data: selectedFileBase64 // Use the Base64/string data
+                };
             }
 
-            // Add user message to the current chat session and display it
-            const userMessage = { text: prompt, sender: 'user' };
 
             // Ensure a chat is active before adding the message
             if (currentChatIndex === -1 || !chatHistory[currentChatIndex]) {
@@ -1097,10 +1410,12 @@
                  startNewChat();
             }
             chatHistory[currentChatIndex].messages.push(userMessage);
-            addMessageToMainChat(userMessage.text, userMessage.sender);
+            addMessageToMainChat(userMessage); // Pass the entire message object
 
-            // Clear the input area immediately
+            // Clear the input area and selected file immediately
             userInput.value = '';
+            clearSelectedFile(); // Clear selected file and hide preview
+
              // Adjust textarea height after clearing
              userInput.style.height = 'auto';
              userInput.style.height = userInput.scrollHeight + 'px';
@@ -1110,13 +1425,35 @@
             isLoading = true;
             sendButton.disabled = true;
             userInput.disabled = true;
+            fileUploadButton.disabled = true; // Disable file upload during loading
             addLoadingIndicator(); // Display the loading message
 
-            // --- Prepare chat history for backend ---
-            // Send the last N messages (e.g., last 20) for context to the backend
-            // This helps the AI understand the conversation flow.
-            // Adjust the number in slice() to control how many previous messages are sent.
-            const historyForBackend = chatHistory[currentChatIndex].messages.slice(-20);
+            // --- Prepare data for backend ---
+            // Send the current prompt, selected file data (if any), and relevant history
+            const historyForBackend = chatHistory[currentChatIndex].messages.slice(-20).map(msg => {
+                // For history sent to backend, simplify file data
+                const historyMsg = { text: msg.text, sender: msg.sender };
+                if (msg.file && msg.file.type.startsWith('image/')) {
+                    // Only send image data for history if it's an image
+                    historyMsg.imageUrl = msg.file.data;
+                }
+                // For other file types in history, just send the text part
+                return historyMsg;
+            });
+
+
+            // Prepare the payload for the backend
+            const payload = {
+                prompt: prompt,
+                history: historyForBackend,
+                // Include file data only if a file is selected in the current message
+                file: file ? {
+                    name: file.name,
+                    type: file.type,
+                    data: selectedFileBase64 // Send the Base64/string data
+                } : null
+            };
+
 
             // --- Backend API Call ---
             // This calls your Python backend hosted on Render
@@ -1127,11 +1464,8 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    // Send the current prompt AND relevant history
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        history: historyForBackend // Sending the history here
-                    }),
+                    // Send the payload with prompt, history, and potentially file
+                    body: JSON.stringify(payload),
                 });
 
                 removeLoadingIndicator(); // Remove loading indicator once response is received
@@ -1159,25 +1493,26 @@
                 // Ensure currentChatIndex is still valid before pushing AI message
                 if (currentChatIndex !== -1 && chatHistory[currentChatIndex]) {
                     chatHistory[currentChatIndex].messages.push(aiMessage);
-                    addMessageToMainChat(aiMessage.text, aiMessage.sender);
+                    addMessageToMainChat(aiMessage); // Pass the entire message object
                     saveChatHistory(); // Save history after successful message exchange
                     renderChatHistoryList(); // Update sidebar in case the title changed
                 } else {
                     // If chat somehow became invalid during the request, just display the message
-                    addMessageToMainChat(aiMessage.text, aiMessage.sender);
+                    addMessageToMainChat(aiMessage);
                 }
 
             } catch (error) {
                 console.error('Error communicating with backend:', error);
                 removeLoadingIndicator(); // Remove loading indicator on error
                 // Display a user-friendly error message
-                addMessageToMainChat('Sorry, there was an error getting a response from the AI. Please try again.', 'ai');
+                addMessageToMainChat({ text: 'Sorry, there was an error getting a response from the AI. Please try again.', sender: 'ai' });
                 // Note: Error messages are not saved to history in this example to avoid clutter
             } finally {
                 // Re-enable input and button regardless of success or failure
                 isLoading = false;
                 sendButton.disabled = false;
                 userInput.disabled = false;
+                fileUploadButton.disabled = false; // Re-enable file upload button
                 userInput.focus(); // Put focus back on the input field
             }
             // --- End Backend API Call ---
@@ -1191,12 +1526,131 @@
                 chatHistory[currentChatIndex].messages = [{ text: 'Hello! How can I help you today?', sender: 'ai' }];
 
                 chatHistoryDiv.innerHTML = ''; // Clear the main chat display area
-                addMessageToMainChat('Hello! How can I help you today?', 'ai'); // Display the initial message again
+                addMessageToMainChat({ text: 'Hello! How can I help you today?', sender: 'ai' }); // Display the initial message again (will render Markdown)
 
                 saveChatHistory(); // Save the cleared chat session
                 renderChatHistoryList(); // Update sidebar (the title might revert to default)
             }
+             // Clear any selected file when clearing chat
+             clearSelectedFile();
         }
+
+        // --- File Upload Handling ---
+        // Function to clear the selected file and hide the preview
+        function clearSelectedFile() {
+            selectedFile = null;
+            selectedFileBase64 = null;
+            imageInput.value = ''; // Clear image file input
+            pdfInput.value = ''; // Clear PDF file input
+            codeInput.value = ''; // Clear code file input
+            filePreviewContent.innerHTML = ''; // Clear preview content
+            filePreviewContainer.classList.add('hidden'); // Hide the preview container
+        }
+
+        // Function to handle file selection
+        function handleFileSelect(event) {
+            const file = event.target.files[0]; // Get the selected file
+
+            if (file) {
+                // Limit file size (e.g., 5MB) - Adjust as needed
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                if (file.size > maxSize) {
+                    alert(`File size exceeds the limit (${maxSize / 1024 / 1024}MB). Please select a smaller file.`);
+                    clearSelectedFile();
+                    return;
+                }
+
+                selectedFile = file; // Store the file object
+
+                // Display file preview/info
+                filePreviewContent.innerHTML = ''; // Clear previous preview
+
+                if (file.type.startsWith('image/')) {
+                    // For images, read as Data URL (Base64) for preview and sending
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        selectedFileBase64 = e.target.result; // Store Base64
+                        const imgElement = document.createElement('img');
+                        imgElement.src = selectedFileBase64;
+                        imgElement.alt = "Image preview";
+                        imgElement.classList.add('max-w-xs', 'max-h-32', 'rounded-md', 'mr-2'); // Image preview
+                        filePreviewContent.appendChild(imgElement);
+                        filePreviewContainer.classList.remove('hidden'); // Show container
+                    };
+                    reader.readAsDataURL(file); // Read as Data URL
+                } else {
+                    // For other file types (PDF, code), read as text or binary data
+                    // For sending to backend, Base64 is often convenient for non-text files too.
+                    // For code/text, reading as text is sufficient.
+
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        selectedFileBase64 = e.target.result; // Store data (Base64 for binary, text for text)
+
+                        let fileIconClass = 'fas fa-file'; // Default icon
+                        if (file.type === 'application/pdf') {
+                            fileIconClass = 'fas fa-file-pdf';
+                        } else if (file.type.startsWith('text/') || file.type === 'application/json' || file.type === 'application/xml' || file.name.lower().endsWith('.py') || file.name.lower().endsWith('.js') || file.name.lower().endsWith('.html') || file.name.lower().endsWith('.css') || file.name.lower().endsWith('.md')) {
+                             fileIconClass = 'fas fa-file-code'; // Generic code icon for known types
+                        }
+
+                        const iconElement = document.createElement('i');
+                        iconElement.classList.add(fileIconClass, 'text-xl', 'mr-2'); // Add color based on type if desired
+                        if (file.type === 'application/pdf') iconElement.classList.add('text-red-600');
+                        else if (file.type.startsWith('text/') || file.name.lower().endsWith('.py') || file.name.lower().endsWith('.js') || file.name.lower().endsWith('.html') || file.name.lower().endsWith('.css') || file.name.lower().endsWith('.md')) iconElement.classList.add('text-blue-600');
+                        else iconElement.classList.add('text-gray-600');
+
+
+                        const fileNameSpan = document.createElement('span');
+                        fileNameSpan.textContent = file.name;
+                        fileNameSpan.classList.add('text-sm', 'font-semibold', 'text-gray-800', 'truncate');
+                        fileNameSpan.style.maxWidth = '200px'; // Limit width to prevent overflow
+
+                        filePreviewContent.appendChild(iconElement);
+                        filePreviewContent.appendChild(fileNameSpan);
+                        filePreviewContainer.classList.remove('hidden'); // Show container
+                    };
+
+                    // Read as Data URL for sending binary data (like PDF) as Base64
+                    // Read as text for text-based files (code, txt)
+                    if (file.type.startsWith('text/') || file.type === 'application/json' || file.type === 'application/xml' || file.name.lower().endsWith('.py') || file.name.lower().endsWith('.js') || file.name.lower().endsWith('.html') || file.name.lower().endsWith('.css') || file.name.lower().endsWith('.md')) {
+                         reader.readAsText(file); // Read as text for code/text files
+                    } else {
+                         reader.readAsDataURL(file); // Read as Data URL (Base64) for others like PDF
+                    }
+
+
+                }
+            } else {
+                // If no file is selected (e.g., user cancels), clear the selected file
+                clearSelectedFile();
+            }
+        }
+
+        // Event listener for the general file upload button (opens a file picker dialog)
+        fileUploadButton.addEventListener('click', () => {
+            // You could potentially show a modal here to let the user choose file type,
+            // or just trigger a generic file input. For simplicity, we'll trigger
+            // the image input first, and you can add logic to trigger others.
+            // A more robust approach might involve separate buttons for each type.
+
+            // Let's trigger the image input for now as a starting point.
+            // You might want a more sophisticated file type selection UI.
+             imageInput.click(); // Trigger the hidden image file input
+             // To trigger others, you'd need separate buttons or a custom file picker UI.
+             // For example, clicking a "Upload PDF" button would trigger pdfInput.click();
+             // Clicking a "Upload Code" button would trigger codeInput.click();
+        });
+
+        // Listen for changes on the specific file inputs
+        imageInput.addEventListener('change', handleFileSelect);
+        pdfInput.addEventListener('change', handleFileSelect);
+        codeInput.addEventListener('change', handleFileSelect);
+
+
+        // Event listener for the remove file button
+        removeFileButton.addEventListener('click', clearSelectedFile);
+
 
         // --- Event Listeners ---
         // Send message on button click
@@ -1282,5 +1736,6 @@
         });
 
     </script>
+
 </body>
 </html>
